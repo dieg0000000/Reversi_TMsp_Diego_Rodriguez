@@ -78,13 +78,13 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 //Valeur de base
                 string x = Console.ReadLine();
 
-                //Prendre la lettre
+                //Prendre la lettre                   //xA = A (LETTRE)
                 int xA = x[0];
 
                 //Prendre le numéro
                 string x11 = x.Substring(1);
 
-                //Convertir le numéro                 //xA = A (LETTRE)
+                //Convertir le numéro
                 int x1 = Convert.ToInt32(x11);        //x1 = 1 (NUMERO)
 
 
