@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reversi_TMsp_Diego_Rodriguez
 {
@@ -46,10 +42,10 @@ namespace Reversi_TMsp_Diego_Rodriguez
             grille[4, 5] = Convert.ToChar("O");
             Console.SetCursorPosition(4 * 2, 5);
             Console.Write("O");
-            grille[5, 4] = Convert.ToChar("X");
+            grille[5, 4] = Convert.ToChar("O");
             Console.SetCursorPosition(5 * 2, 4);
             Console.Write("O");
-            grille[5, 5] = Convert.ToChar("O");
+            grille[5, 5] = Convert.ToChar("X");
             Console.SetCursorPosition(5 * 2, 5);
             Console.Write("X");
 
@@ -58,7 +54,10 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
             //Système de tours 
             int tour = 0;
+            bool pio = false;
             string sym = "X";
+            String symop = "O";
+            
 
 
             Console.SetCursorPosition(0, 11);
@@ -106,6 +105,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     sym = "O";
                 }
 
+                //Tour opposés
+                if (tour % 2 == 0)
+                {
+                    symop = "O";
+                }
+                else
+                {
+                    symop = "X";
+                }
 
                 //Pas jouer en dehors du tableau
                 if (Convert.ToInt32(x1) > 8)
@@ -168,19 +176,87 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 Console.WriteLine("lettre = " + xA);
                 Console.WriteLine("numero = " + x1);
 
-                Console.ReadLine();
-                //placement de x dans la grille
-                for (int ligne = 5; ligne >= 0; ligne--)
+                //Effacer le message d'erreur
+                Console.SetCursorPosition(0, 16);
+                Console.Write("                       ");
+
+                if (x1 < 7)
                 {
-                    if (grille[xA, x1] == ' ')
+                    Console.WriteLine("!!!!!!!!!!!!!!!!");
+                }
+
+                ////placement de x dans la grille
+                //Si case vide 1
+                if (grille[xA, x1] == ' ')
+                {
+                    if (grille[xA, x1 + 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("1!");
+                        pio = true;
+                    }
+                    else if (grille[xA - 1, x1 + 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("2!");
+                        pio = true;
+                    }
+                    else if (grille[xA - 1, x1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("3!");
+                        pio = true;
+                    }
+                    else if (grille[xA - 1, x1 - 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("4!");
+                        pio = true;
+                    }
+                    else if (grille[xA, x1 - 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("5!"); 
+                        pio = true;
+                    }
+                    else if (grille[xA + 1, x1 - 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("6!");
+                        pio = true;
+                    }
+                    else if (grille[xA + 1, x1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("7!");
+                        pio = true;
+                    }
+                    else if (grille[xA + 1, x1 + 1] == Convert.ToChar(symop))
+                    {
+                        Console.WriteLine("8!"); 
+                        pio = true;
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(0, 16);
+                        Console.WriteLine("Entrée invalide !!");
+                        pio = true;
+                    }
+
+
+                    if (pio == true)
                     {
                         grille[xA, x1] = Convert.ToChar(sym);
                         Console.SetCursorPosition(xA * 2, x1);
                         Console.Write(sym);
+                        tour++;
+                        pio = false;
                     }
-
+                    
 
                 }
+                //Case occupée
+                else
+                {
+                    Console.SetCursorPosition(0, 16);
+                    Console.WriteLine("Case occupée !!");
+                }
+                
+
+
             }
         }
     }
