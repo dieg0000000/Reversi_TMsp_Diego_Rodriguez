@@ -2,262 +2,163 @@
 
 namespace Reversi_TMsp_Diego_Rodriguez
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
+	internal class Program
+	{
+		static void Main(string[] args)
+		{
+			//Créer une grille de 8 par 8
+			char[,] grille = new char[8, 8];
+
+			int longu = 8;
+			for (int ligne = 0; ligne < longu; ligne++)
+			{
+				for (int col = 0; col < longu; col++)
+				{
+					grille[ligne, col] = ' ';
+				}
+			}
+
+			//Afficher la grille
+			for (int ligne = 0; ligne < 8; ligne++)
+			{
+				for (int col = 0; col < 8; col++)
+				{
+					Console.Write("·");
+				}
+				Console.WriteLine();
+			}
+
+			//Affichage des lignes
+			for (int o = 1; o < 9; o++)
+			{
+				Console.SetCursorPosition(8, o - 1);
+				Console.Write(o);
+			}
+
+			//Affichage des colonnes
+			Console.WriteLine();
+			Console.WriteLine("ABCDEFGH");
+
+			//Pions au milieu de base (invisible)
+			grille[3, 3] = 'X';
+			grille[4, 3] = 'O';
+			grille[3, 4] = 'O';
+			grille[4, 4] = 'X';
+
+			//Pions au milieu de base (affiché)
+			Console.SetCursorPosition(3, 3);
+			Console.Write("X");
+			Console.SetCursorPosition(3, 4);
+			Console.Write("O");
+			Console.SetCursorPosition(4, 3);
+			Console.Write("O");
+			Console.SetCursorPosition(4, 4);
+			Console.Write("X");
+
+			///Déclaration des variables
+			int tour = 0;
+			bool pio = false;
+			string sym = "X";
+			string symop = "O";
+
+			//Instructions
+			Console.SetCursorPosition(0, 11);
+			Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
+			Console.SetCursorPosition(34, 11);
+
+			//Boucle principale
+			while (true)
+			{
+				//Clear la donnée 
+				Console.SetCursorPosition(34, 11);
+				Console.Write("        ");
+				Console.SetCursorPosition(34, 11);
+
+				//Valeur de base
+				string x = Console.ReadLine();
+
+				//Prendre la lettre
+				int xA = x[0];                                  //xA = A (LETTRE)
+
+				//Prendre le numéro
+				string x11 = x.Substring(1);
+
+				//Convertir le numéro
+				int x1 = Convert.ToInt32(x11);                  //x1 = 1 (NUMERO)
+
+				// FIX → passer en indices tableau (0-7)
+				x1 = x1 - 1;
+
+				//Clear le "Entrée invalide !!"
+				Console.SetCursorPosition(0, 12);
+				Console.Write("                               ");
 
 
-            Console.WriteLine("  A B C D E F G H");
+				//Si tour pair ou impair O ou X
+				if (tour % 2 == 0)
+				{
+					sym = "X";
+					symop = "O";
+				}
+				else
+				{
+					sym = "O";
+					symop = "X";
+				}
 
+				//Lettre en numero (A = 0)
+				if (xA == 'A' || xA == 'a') xA = 0;
+				else if (xA == 'B' || xA == 'b') xA = 1;
+				else if (xA == 'C' || xA == 'c') xA = 2;
+				else if (xA == 'D' || xA == 'd') xA = 3;
+				else if (xA == 'E' || xA == 'e') xA = 4;
+				else if (xA == 'F' || xA == 'f') xA = 5;
+				else if (xA == 'G' || xA == 'g') xA = 6;
+				else if (xA == 'H' || xA == 'h') xA = 7;
+				else
+				{
+					Console.WriteLine("Entrée invalide !!");
+					continue;
+				}
+				Console.WriteLine();
 
-            const int longu = 8;
+				//Temporaire
+				Console.WriteLine("lettre = " + xA);
+				Console.WriteLine("numero = " + x1);
 
-            //Créer une grille de 8 par 8
-            char[,] grille = new char[longu, longu];
+				//Effacer le message d'erreur
+				Console.SetCursorPosition(0, 16);
+				Console.Write("                       ");
 
-            for (int ligne = 0; ligne < longu; ligne++)
-            {
-                for (int col = 0; col < longu; col++)
-                {
-                    grille[ligne, col] = ' ';
-                }
-            }
+				//Vérifie si la case est vide
+				if (grille[xA, x1] == ' ')
+				{
+					//Regarde autour si y a un pion adverse
+					if (x1 + 1 < 8 && grille[xA, x1 + 1] == symop[0]) pio = true;
+					else if (xA - 1 >= 0 && x1 + 1 < 8 && grille[xA - 1, x1 + 1] == symop[0]) pio = true;
+					else if (xA - 1 >= 0 && grille[xA - 1, x1] == symop[0]) pio = true;
+					else if (xA - 1 >= 0 && x1 - 1 >= 0 && grille[xA - 1, x1 - 1] == symop[0]) pio = true;
+					else if (x1 - 1 >= 0 && grille[xA, x1 - 1] == symop[0]) pio = true;
+					else if (xA + 1 < 8 && x1 - 1 >= 0 && grille[xA + 1, x1 - 1] == symop[0]) pio = true;
+					else if (xA + 1 < 8 && grille[xA + 1, x1] == symop[0]) pio = true;
+					else if (xA + 1 < 8 && x1 + 1 < 8 && grille[xA + 1, x1 + 1] == symop[0]) pio = true;
+					else Console.WriteLine("Entrée invalide !!");
 
-            //afficher la grille
-            for (int ligne = 0; ligne < 8; ligne++)
-            {
-                Console.Write(ligne + 1);
-                for (int col = 0; col < 8; col++)
-                {
-                    Console.Write(grille[ligne, col] + ("·"));
-                }
-                Console.WriteLine();
-            }
-
-            //Les 4 pions au milieu de base
-            grille[4, 4] = Convert.ToChar("X");
-            Console.SetCursorPosition(4 * 2, 4);
-            Console.Write("X");
-            grille[4, 5] = Convert.ToChar("O");
-            Console.SetCursorPosition(4 * 2, 5);
-            Console.Write("O");
-            grille[5, 4] = Convert.ToChar("O");
-            Console.SetCursorPosition(5 * 2, 4);
-            Console.Write("O");
-            grille[5, 5] = Convert.ToChar("X");
-            Console.SetCursorPosition(5 * 2, 5);
-            Console.Write("X");
-
-
-
-
-            //Système de tours 
-            int tour = 0;
-            bool pio = false;
-            string sym = "X";
-            String symop = "O";
-            
-
-
-            Console.SetCursorPosition(0, 11);
-            Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
-            Console.SetCursorPosition(34, 11);
-
-
-
-            while (true)
-            {
-
-                //Clear la donnée 
-                Console.SetCursorPosition(34, 11);
-                Console.Write("        ");
-                Console.SetCursorPosition(34, 11);
-
-                //Valeur de base
-                string x = Console.ReadLine();
-
-                //Prendre la lettre
-                int xA = x[0];                        //xA = A (LETTRE)
-
-                //Prendre le numéro~~
-                string x11 = x.Substring(1);
-
-                //Convertir le numéro
-                int x1 = Convert.ToInt32(x11);        //x1 = 1 (NUMERO)
-
-
-
-
-                //Clear le "Entrée invalide !!"
-                Console.SetCursorPosition(0, 12);
-                Console.Write("                               ");
-                Console.SetCursorPosition(0, 12);
-
-
-                //Si tour pair ou impair O ou X
-                if (tour % 2 == 0)
-                {
-                    sym = "X";
-                }
-                else
-                {
-                    sym = "O";
-                }
-
-                //Tour opposés
-                if (tour % 2 == 0)
-                {
-                    symop = "O";
-                }
-                else
-                {
-                    symop = "X";
-                }
-
-                //Pas jouer en dehors du tableau
-                if (Convert.ToInt32(x1) > 8)
-                {
-                    Console.WriteLine("Entrée invalide !!");
-                }
-
-
-                //Lettre en numero (A = 1)
-                else if (xA == 'A' || xA == 'a')
-                {
-                    xA = 1;
-                }
-
-                else if (xA == 'B' || xA == 'b')
-                {
-                    xA = 2;
-                }
-
-                else if (xA == 'C' || xA == 'c')
-                {
-                    xA = 3;
-                }
-
-                else if (xA == 'D' || xA == 'd')
-                {
-                    xA = 4;
-                }
-
-                else if (xA == 'E' || xA == 'e')
-                {
-                    xA = 5;
-                }
-
-                else if (xA == 'F' || xA == 'f')
-                {
-                    xA = 6;
-                }
-
-                else if (xA == 'G' || xA == 'g')
-                {
-                    xA = 7;
-                }
-
-                else if (xA == 'H' || xA == 'h')
-                {
-                    xA = 8;
-                }
-
-
-                //Pas pouvoir jouer une autre case
-                else
-                {
-                    Console.WriteLine("Entrée invalide !!");
-                }
-
-
-
-                //Temporaire
-                Console.WriteLine("lettre = " + xA);
-                Console.WriteLine("numero = " + x1);
-
-                //Effacer le message d'erreur
-                Console.SetCursorPosition(0, 16);
-                Console.Write("                       ");
-
-                if (x1 < 7)
-                {
-                    Console.WriteLine("!!!!!!!!!!!!!!!!");
-                }
-
-                ////placement de x dans la grille
-                //Si case vide 1
-                if (grille[xA, x1] == ' ')
-                {
-                    if (grille[xA, x1 + 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("1!");
-                        pio = true;
-                    }
-                    else if (grille[xA - 1, x1 + 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("2!");
-                        pio = true;
-                    }
-                    else if (grille[xA - 1, x1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("3!");
-                        pio = true;
-                    }
-                    else if (grille[xA - 1, x1 - 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("4!");
-                        pio = true;
-                    }
-                    else if (grille[xA, x1 - 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("5!"); 
-                        pio = true;
-                    }
-                    else if (grille[xA + 1, x1 - 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("6!");
-                        pio = true;
-                    }
-                    else if (grille[xA + 1, x1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("7!");
-                        pio = true;
-                    }
-                    else if (grille[xA + 1, x1 + 1] == Convert.ToChar(symop))
-                    {
-                        Console.WriteLine("8!"); 
-                        pio = true;
-                    }
-                    else
-                    {
-                        Console.SetCursorPosition(0, 16);
-                        Console.WriteLine("Entrée invalide !!");
-                        pio = true;
-                    }
-
-
-                    if (pio == true)
-                    {
-                        grille[xA, x1] = Convert.ToChar(sym);
-                        Console.SetCursorPosition(xA * 2, x1);
-                        Console.Write(sym);
-                        tour++;
-                        pio = false;
-                    }
-                    
-
-                }
-                //Case occupée
-                else
-                {
-                    Console.SetCursorPosition(0, 16);
-                    Console.WriteLine("Case occupée !!");
-                }
-                
-
-
-            }
-        }
-    }
+					//Si oui place le pion
+					if (pio == true)
+					{
+						grille[xA, x1] = sym[0];
+						Console.SetCursorPosition(xA, x1);
+						Console.Write(sym);
+						tour++;
+						pio = false;
+					}
+				}
+				else
+				{
+					Console.WriteLine("Case occupée !!");
+				}
+			}
+		}
+	}
 }
