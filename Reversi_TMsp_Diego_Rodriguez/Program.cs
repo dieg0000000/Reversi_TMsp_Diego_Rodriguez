@@ -93,7 +93,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 //Convertir le numéro
                 int x1 = Convert.ToInt32(x11);                  //x1 = 1 (NUMERO)
 
-                // FIX → passer en indices tableau (0-7)
+                //Passer en valeur tableau
                 x1 = x1 - 1;
 
                 //Clear le "Entrée invalide !!"
@@ -338,37 +338,6 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
                     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     else
                     {
 
@@ -389,7 +358,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                     else
                     {
-                        Console.WriteLine("Case occupée !!");
+                        Console.WriteLine("Coup invaide !!");
                         pio = true;
                     }
                 }
