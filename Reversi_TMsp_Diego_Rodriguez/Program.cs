@@ -339,8 +339,217 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 //Si la case est vide
                 if (grille[xA, x1] == ' ')
                 {
+<<<<<<< HEAD
                     //Appel de la méthode qui vérifie si on peut jouer dans cette case
                     pio = Verif(grille, x1, xA, sym, symop, pio);
+=======
+                    //En dessous
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (x1 + i < 8 && grille[xA, x1 + i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (x1 + i < 8 && i > 1 && grille[xA, x1 + i] == Convert.ToChar(sym))
+                        {
+                            //Retourner les pions intermédiaires
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA, x1 + j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA, x1 + j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //En dessus
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (x1 - i >= 0 && grille[xA, x1 - i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (x1 - i >= 0 && i > 1 && grille[xA, x1 - i] == Convert.ToChar(sym))
+                        {
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA, x1 - j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA, x1 - j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //A gauche
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA - i >= 0 && grille[xA - i, x1] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA - i >= 0 && i > 1 && grille[xA - i, x1] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA - j, x1] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA - j, x1);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //A droite
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA + i < 8 && grille[xA + i, x1] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA + i < 8 && i > 1 && grille[xA + i, x1] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA + j, x1] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA + j, x1);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //Diagonale / vers le bas
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA - i >= 0 && x1 + i < 8 && grille[xA - i, x1 + i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA - i >= 0 && x1 + i < 8 && i > 1 && grille[xA - i, x1 + i] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA - j, x1 + j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA - j, x1 + j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //Diagonale / vers le haut
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA + i < 8 && x1 - i >= 0 && grille[xA + i, x1 - i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA + i < 8 && x1 - i >= 0 && i > 1 && grille[xA + i, x1 - i] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA + j, x1 - j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA + j, x1 - j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //Diagonale \ vers le bas
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA + i < 8 && x1 + i < 8 && grille[xA + i, x1 + i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA + i < 8 && x1 + i < 8 && i > 1 && grille[xA + i, x1 + i] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA + j, x1 + j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA + j, x1 + j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    //Diagonale \ vers le haut
+                    if (grille[xA, x1] == ' ')
+                    {
+                        int i = 1;
+
+                        while (xA - i >= 0 && x1 - i >= 0 && grille[xA - i, x1 - i] == Convert.ToChar(symop))
+                        {
+                            i++;
+                        }
+
+                        if (xA - i >= 0 && x1 - i >= 0 && i > 1 && grille[xA - i, x1 - i] == Convert.ToChar(sym))
+                        {
+
+                            for (int j = 1; j < i; j++)
+                            {
+                                grille[xA - j, x1 - j] = Convert.ToChar(sym);
+
+                                Console.SetCursorPosition(xA - j, x1 - j);
+                                Console.Write(sym);
+                            }
+
+                            pio = true;
+                        }
+                    }
+
+                    else
+                    {
+
+                        Console.SetCursorPosition(0, 16);
+                        Console.WriteLine("Entrée invalide !!");
+
+                    }
+>>>>>>> e86ddc21e21e3ecdf1c797c19c852ac86564c395
 
                     //Si oui place le pion
                     if (pio == true)
@@ -359,8 +568,13 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     //Si non, coup invalide
                     else
                     {
+<<<<<<< HEAD
                         Console.SetCursorPosition(0, 13);
                         Console.Write("Coup invalide !!");
+=======
+                        Console.WriteLine("Coup invaide !!");
+                        pio = true;
+>>>>>>> e86ddc21e21e3ecdf1c797c19c852ac86564c395
                     }
                 }
 
