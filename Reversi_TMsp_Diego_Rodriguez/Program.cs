@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Lib_Reversi;
 
 namespace Reversi_TMsp_Diego_Rodriguez
 {
@@ -8,302 +9,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
 
 
-        //Vérifications
-        static bool Verifcoup(char[,] grille, int x1, int xA, string sym, string symop, bool valable)
-        {
-            //En dessous
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (x1 + i < 8 && grille[xA, x1 + i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (x1 + i < 8 && i > 1 && grille[xA, x1 + i] == Convert.ToChar(sym))
-                {
-                    //Retourner les valablens intermédiaires
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA, x1 + j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA, x1 + j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //En dessus
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (x1 - i >= 0 && grille[xA, x1 - i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (x1 - i >= 0 && i > 1 && grille[xA, x1 - i] == Convert.ToChar(sym))
-                {
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA, x1 - j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA, x1 - j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //A gauche
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA - i >= 0 && grille[xA - i, x1] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA - i >= 0 && i > 1 && grille[xA - i, x1] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA - j, x1] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA - j, x1);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //A droite
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA + i < 8 && grille[xA + i, x1] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA + i < 8 && i > 1 && grille[xA + i, x1] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA + j, x1] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA + j, x1);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //Diagonale / vers le bas
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA - i >= 0 && x1 + i < 8 && grille[xA - i, x1 + i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA - i >= 0 && x1 + i < 8 && i > 1 && grille[xA - i, x1 + i] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA - j, x1 + j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA - j, x1 + j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //Diagonale / vers le haut
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA + i < 8 && x1 - i >= 0 && grille[xA + i, x1 - i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA + i < 8 && x1 - i >= 0 && i > 1 && grille[xA + i, x1 - i] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA + j, x1 - j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA + j, x1 - j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //Diagonale \ vers le bas
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA + i < 8 && x1 + i < 8 && grille[xA + i, x1 + i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA + i < 8 && x1 + i < 8 && i > 1 && grille[xA + i, x1 + i] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA + j, x1 + j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA + j, x1 + j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            //Diagonale \ vers le haut
-            if (grille[xA, x1] == ' ')
-            {
-                int i = 1;
-
-                while (xA - i >= 0 && x1 - i >= 0 && grille[xA - i, x1 - i] == Convert.ToChar(symop))
-                {
-                    i++;
-                }
-
-                if (xA - i >= 0 && x1 - i >= 0 && i > 1 && grille[xA - i, x1 - i] == Convert.ToChar(sym))
-                {
-
-                    for (int j = 1; j < i; j++)
-                    {
-                        grille[xA - j, x1 - j] = Convert.ToChar(sym);
-
-                        Console.SetCursorPosition(xA - j, x1 - j);
-                        Console.Write(sym);
-                    }
-
-                    valable = true;
-                }
-            }
-
-            return valable;
-        }
-
-        static bool Couppossible(char[,] grille, int x1, int xA, string sym, string symop)
-        {
-
-            if (grille[xA, x1] != ' ') return false;
-
-            //En dessous
-            int i = 1;
-            while (x1 + i < 8 && grille[xA, x1 + i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (x1 + i < 8 && i > 1 && grille[xA, x1 + i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //En dessus
-            while (x1 - i >= 0 && grille[xA, x1 - i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (x1 - i >= 0 && i > 1 && grille[xA, x1 - i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //Gauche
-            while (xA - i >= 0 && grille[xA - i, x1] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (xA - i >= 0 && i > 1 && grille[xA - i, x1] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //A droite
-            while (xA + i < 8 && grille[xA + i, x1] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (xA + i < 8 && i > 1 && grille[xA + i, x1] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //Diagonale / vers le bas
-            while (xA - i >= 0 && x1 + i < 8 && grille[xA - i, x1 + i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (xA - i >= 0 && x1 + i < 8 && i > 1 && grille[xA - i, x1 + i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //Diagonale / vers le haut
-            while (xA + i < 8 && x1 - i >= 0 && grille[xA + i, x1 - i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (xA + i < 8 && x1 - i >= 0 && i > 1 && grille[xA + i, x1 - i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //Diagonale \ vers le bas
-            while (xA + i < 8 && x1 + i < 8 && grille[xA + i, x1 + i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-            if (xA + i < 8 && x1 + i < 8 && i > 1 && grille[xA + i, x1 + i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            //Diagonale \ vers le haut
-            while (xA - i >= 0 && x1 - i >= 0 && grille[xA - i, x1 - i] == Convert.ToChar(symop))
-            {
-                i++;
-            }
-
-            if (xA - i >= 0 && x1 - i >= 0 && i > 1 && grille[xA - i, x1 - i] == Convert.ToChar(sym))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        ///////////////////////////////////////////////////////////////////
+  
 
         static void Main(string[] args)
         {
@@ -311,17 +17,9 @@ namespace Reversi_TMsp_Diego_Rodriguez
             bool jeu = true;
             do
             {
-                //Créer une grille de 8 par 8
-                char[,] grille = new char[8, 8];
+               
 
-                int longu = 8;
-                for (int ligne = 0; ligne < longu; ligne++)
-                {
-                    for (int col = 0; col < longu; col++)
-                    {
-                        grille[ligne, col] = ' ';
-                    }
-                }
+                tableau.InitialiserGrille();
 
                 //Afficher la grille
                 for (int ligne = 0; ligne < 8; ligne++)
@@ -341,24 +39,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 }
 
                 ///Déclaration des variables
-                int tour = 0;
                 int aff = 0;
                 bool valable = false;
                 bool partie = true;
                 bool menu = false;
-                string sym = "X";
-                string symop = "O";
-
+                
                 //Affichage des colonnes
                 Console.WriteLine();
                 Console.WriteLine("ABCDEFGH");
-
-                //valablens au milieu de base (invisible)
-                grille[3, 3] = 'X';
-                grille[3, 4] = 'O';
-                grille[4, 3] = 'O';
-                grille[4, 4] = 'X';
-
 
                 //Affichage du compteur à 2 pour chaque valablen, avant qu'il commence à compter 
                 Console.SetCursorPosition(14, 3);
@@ -378,7 +66,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                 //Instructions
                 Console.SetCursorPosition(0, 10);
-                Console.WriteLine("Au tour du joueur " + sym);
+                Console.WriteLine("Au tour du joueur " + joueur.sym);
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
                 Console.SetCursorPosition(34, 11);
@@ -392,26 +80,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     int comptVide = 0;
                     int comptPossible = 0;
 
-                    //Si tour pair ou impair O ou X
-                    if (tour % 2 == 0)
-                    {
-                        sym = "X";
-                        symop = "O";
-                    }
-                    else
-                    {
-                        sym = "O";
-                        symop = "X";
-                    }
-
                     //Affichage des coups possibles
                     for (int ligne = 0; ligne < 8; ligne++)
                     {
                         for (int col = 0; col < 8; col++)
                         {
-                            if (grille[ligne, col] == ' ')
+                            if (tableau.grille[ligne, col] == ' ')
                             {
-                                if (Couppossible(grille, col, ligne, sym, symop))
+                                if (coupposs.Couppossible(tableau.grille, col, ligne, joueur.sym, joueur.symop))
                                 {
                                     Console.SetCursorPosition(ligne, col);
                                     Console.Write("+");
@@ -429,7 +105,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                     //Instruction
                     Console.SetCursorPosition(0, 10);
-                    Console.WriteLine("Au tour du joueur " + sym);
+                    Console.WriteLine("Au tour du joueur " + joueur.sym);
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 11);
@@ -481,18 +157,20 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         Console.WriteLine();
 
                         //Si la case est vide
-                        if (grille[xA, x1] == ' ')
+                        if (tableau.grille[xA, x1] == ' ')
                         {
                             //Appel de la méthode qui vérifie si on peut jouer dans cette case
-                            valable = Verifcoup(grille, x1, xA, sym, symop, valable);
+                            valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop, valable);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
-                                grille[xA, x1] = Convert.ToChar(sym);
+                                tableau.grille[xA, x1] = Convert.ToChar(joueur.sym);
                                 Console.SetCursorPosition(xA, x1);
-                                Console.Write(sym);
-                                tour++;
+                                Console.Write(joueur.sym);
+                                joueur.tour++;
+                                joueur.ChangerJoueur();
+
                                 valable = false;
                                 aff = 0;
 
@@ -515,22 +193,19 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             Console.Write("Case occupée !!");
                         }
 
-                        //Comptage de chaque variables
                         for (int i = 0; i < 8; i++)
                         {
                             for (int j = 0; j < 8; j++)
                             {
-                                if (grille[i, j] == 'X')
+                                if (tableau.grille[i, j] == 'X')
                                 {
                                     comptX++;
                                 }
-
-                                else if (grille[i, j] == 'O')
+                                else if (tableau.grille[i, j] == 'O')
                                 {
                                     comptO++;
                                 }
-
-                                else if (grille[i, j] == ' ')
+                                else
                                 {
                                     comptVide++;
                                 }
@@ -554,7 +229,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
                         else if (comptPossible == 0)
                         {
-                            tour++;
+                            joueur.tour++;
                             aff++;
                         }
                         else if (aff > 1)
