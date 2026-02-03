@@ -1,6 +1,6 @@
 ﻿namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 {
-    partial class Form1
+    partial class Reversi_Forms
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,10 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Reversi_Forms
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(602, 603);
+            this.Name = "Reversi_Forms";
+            this.Text = "Reversi Game";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

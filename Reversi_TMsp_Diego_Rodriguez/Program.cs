@@ -6,19 +6,12 @@ namespace Reversi_TMsp_Diego_Rodriguez
 {
     internal class Program
     {
-
-
-
-  
-
         static void Main(string[] args)
         {
             Console.Clear();
             bool jeu = true;
             do
             {
-               
-
                 tableau.InitialiserGrille();
 
                 //Afficher la grille

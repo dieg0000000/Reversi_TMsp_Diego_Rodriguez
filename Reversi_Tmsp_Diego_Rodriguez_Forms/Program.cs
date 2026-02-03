@@ -16,7 +16,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Reversi_Forms());
         }
     }
 }
