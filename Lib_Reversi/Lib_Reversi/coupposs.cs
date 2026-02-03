@@ -26,6 +26,7 @@ namespace Lib_Reversi
             }
 
             //En dessus
+            i = 1;
             while (x1 - i >= 0 && grille[xA, x1 - i] == Convert.ToChar(symop))
             {
                 i++;
@@ -36,6 +37,7 @@ namespace Lib_Reversi
             }
 
             //Gauche
+            i = 1;
             while (xA - i >= 0 && grille[xA - i, x1] == Convert.ToChar(symop))
             {
                 i++;
@@ -46,6 +48,7 @@ namespace Lib_Reversi
             }
 
             //A droite
+            i = 1;
             while (xA + i < 8 && grille[xA + i, x1] == Convert.ToChar(symop))
             {
                 i++;
@@ -56,6 +59,7 @@ namespace Lib_Reversi
             }
 
             //Diagonale / vers le bas
+            i = 1;
             while (xA - i >= 0 && x1 + i < 8 && grille[xA - i, x1 + i] == Convert.ToChar(symop))
             {
                 i++;
@@ -66,6 +70,7 @@ namespace Lib_Reversi
             }
 
             //Diagonale / vers le haut
+            i = 1;
             while (xA + i < 8 && x1 - i >= 0 && grille[xA + i, x1 - i] == Convert.ToChar(symop))
             {
                 i++;
@@ -76,6 +81,7 @@ namespace Lib_Reversi
             }
 
             //Diagonale \ vers le bas
+            i = 1;
             while (xA + i < 8 && x1 + i < 8 && grille[xA + i, x1 + i] == Convert.ToChar(symop))
             {
                 i++;
@@ -86,6 +92,7 @@ namespace Lib_Reversi
             }
 
             //Diagonale \ vers le haut
+            i = 1;
             while (xA - i >= 0 && x1 - i >= 0 && grille[xA - i, x1 - i] == Convert.ToChar(symop))
             {
                 i++;
