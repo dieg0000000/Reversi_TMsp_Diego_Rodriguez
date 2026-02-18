@@ -36,7 +36,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 bool valable = false;
                 bool partie = true;
                 bool menu = false;
-                
+
                 //Affichage des colonnes
                 Console.WriteLine();
                 Console.WriteLine("ABCDEFGH");
@@ -80,16 +80,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         {
                             if (tableau.grille[ligne, col] == ' ')
                             {
-                                if (coupposs.Couppossible(tableau.grille, col, ligne, joueur.sym, joueur.symop))
+                                if (coupposs.Couppossible(tableau.grille, ligne, col, joueur.sym, joueur.symop))
                                 {
-                                    Console.SetCursorPosition(ligne, col);
+                                    Console.SetCursorPosition(col, ligne);   // ✅ (colonne, ligne)
                                     Console.Write("+");
                                     comptPossible++;
                                 }
                                 else
                                 {
-                                    //Remet un point si ancien indice
-                                    Console.SetCursorPosition(ligne, col);
+                                    Console.SetCursorPosition(col, ligne);   // ✅ (colonne, ligne)
                                     Console.Write("·");
                                 }
                             }
@@ -150,17 +149,42 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         Console.WriteLine();
 
                         //Si la case est vide
-                        if (tableau.grille[xA, x1] == ' ')
+                        // CHANGÉ : grille[x1, xA]
+                        if (tableau.grille[x1, xA] == ' ')
                         {
                             //Appel de la méthode qui vérifie si on peut jouer dans cette case
-                            valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop, valable);
+                            valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
-                                tableau.grille[xA, x1] = Convert.ToChar(joueur.sym);
+                                // CHANGÉ : grille[x1, xA]
+                                tableau.grille[x1, xA] = Convert.ToChar(joueur.sym);
+
+                                // SetCursorPosition = (colonne, ligne) => (xA, x1) OK
                                 Console.SetCursorPosition(xA, x1);
                                 Console.Write(joueur.sym);
+
+                                for (int ligne = 0; ligne < 8; ligne++)
+                                {
+                                    for (int col = 0; col < 8; col++)
+                                    {
+                                        if (tableau.grille[ligne, col] == Convert.ToChar(joueur.sym))
+                                        {
+                                            Console.SetCursorPosition(col, ligne);
+                                            Console.Write(joueur.sym);
+                                        }
+                                        else
+                                        {
+                                            if (tableau.grille[ligne, col] == Convert.ToChar(joueur.symop))
+                                            {
+                                                Console.SetCursorPosition(col, ligne);
+                                                Console.Write(joueur.symop);
+                                            }
+                                        }
+                                    }
+                                }
+
                                 joueur.tour++;
                                 joueur.ChangerJoueur();
 
@@ -312,5 +336,3 @@ namespace Reversi_TMsp_Diego_Rodriguez
         }
     }
 }
-
-

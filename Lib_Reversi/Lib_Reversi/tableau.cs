@@ -5,7 +5,7 @@
         //Créer une grille de 8 par 8
         public static char[,] grille = new char[8, 8];
 
-        public static void InitialiserGrille()  //tableau.InitialiserGrille();
+        public static void InitialiserGrille()
         {
             //Mettre des espaces vides dasn chaque case
             int longu = 8;

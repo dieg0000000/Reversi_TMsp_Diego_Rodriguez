@@ -12,7 +12,7 @@ namespace Lib_Reversi
         public static string sym = "X";
         public static string symop = "O";
 
-        public static void ChangerJoueur() //tableau.CompterPions();
+        public static void ChangerJoueur()
         {
             //Si tour pair ou impair O ou X
             if (tour % 2 == 0)

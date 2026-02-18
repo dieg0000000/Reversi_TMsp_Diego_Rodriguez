@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(602, 603);
             this.Name = "Reversi_Forms";
             this.Text = "Reversi Game";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Reversi_Forms_FormClosing);
             this.ResumeLayout(false);
 
         }
