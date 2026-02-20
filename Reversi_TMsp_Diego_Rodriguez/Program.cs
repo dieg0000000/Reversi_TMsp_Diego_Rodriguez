@@ -31,15 +31,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     Console.Write(l);
                 }
 
+                //Affichage des colonnes
+                Console.WriteLine();
+                Console.WriteLine("ABCDEFGH");
+
                 ///Déclaration des variables
                 int aff = 0;
                 bool valable = false;
                 bool partie = true;
                 bool menu = false;
-
-                //Affichage des colonnes
-                Console.WriteLine();
-                Console.WriteLine("ABCDEFGH");
 
                 //Affichage du compteur à 2 pour chaque valablen, avant qu'il commence à compter 
                 Console.SetCursorPosition(14, 3);
@@ -47,7 +47,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 Console.SetCursorPosition(14, 4);
                 Console.Write("O = 2");
 
-                //valablens au milieu de base (affiché)
+                //Valables au milieu de base (affiché)
                 Console.SetCursorPosition(3, 3);
                 Console.Write("X");
                 Console.SetCursorPosition(3, 4);
@@ -82,13 +82,13 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             {
                                 if (coupposs.Couppossible(tableau.grille, ligne, col, joueur.sym, joueur.symop))
                                 {
-                                    Console.SetCursorPosition(col, ligne);   // ✅ (colonne, ligne)
+                                    Console.SetCursorPosition(col, ligne);   
                                     Console.Write("+");
                                     comptPossible++;
                                 }
                                 else
                                 {
-                                    Console.SetCursorPosition(col, ligne);   // ✅ (colonne, ligne)
+                                    Console.SetCursorPosition(col, ligne);   
                                     Console.Write("·");
                                 }
                             }
@@ -130,8 +130,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                         //Passer en valeur tableau
                         x1 = x1 - 1;
-
-
+                        
                         //Lettre en numero (A = 0)
                         if (xA == 'A' || xA == 'a') xA = 0;
                         else if (xA == 'B' || xA == 'b') xA = 1;
@@ -149,7 +148,6 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         Console.WriteLine();
 
                         //Si la case est vide
-                        // CHANGÉ : grille[x1, xA]
                         if (tableau.grille[x1, xA] == ' ')
                         {
                             //Appel de la méthode qui vérifie si on peut jouer dans cette case
@@ -158,10 +156,8 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             //Si oui place le pion
                             if (valable == true)
                             {
-                                // CHANGÉ : grille[x1, xA]
                                 tableau.grille[x1, xA] = Convert.ToChar(joueur.sym);
 
-                                // SetCursorPosition = (colonne, ligne) => (xA, x1) OK
                                 Console.SetCursorPosition(xA, x1);
                                 Console.Write(joueur.sym);
 

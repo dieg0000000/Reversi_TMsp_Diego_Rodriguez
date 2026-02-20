@@ -40,6 +40,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         public Reversi_Forms()
         {
             InitializeComponent();
+
             imgNoir = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-noir.png");
             imgBlanc = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-blanc.png");
             imgGris = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-gris.png");
