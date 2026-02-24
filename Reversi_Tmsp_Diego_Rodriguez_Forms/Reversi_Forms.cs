@@ -17,7 +17,6 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         tableau jeu = new tableau();
 
         //Tableau des caractères et des bouttons
-        private char[,] grille = new char[8, 8];
         private Button[,] boutons = new Button[8, 8];
 
         //Initiation des valeurs
