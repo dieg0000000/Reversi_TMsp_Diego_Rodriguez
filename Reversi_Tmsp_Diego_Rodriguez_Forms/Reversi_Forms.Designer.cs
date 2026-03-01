@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reversi_Forms));
             this.SuspendLayout();
             // 
             // Reversi_Forms
@@ -35,6 +36,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 603);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Reversi_Forms";
             this.Text = "Reversi Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Reversi_Forms_FormClosing);

@@ -13,9 +13,6 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private Image imgPlateau;
         private Image imgGris;
 
-        //Classe du plateau
-        tableau jeu = new tableau();
-
         //Tableau des caractères et des bouttons
         private Button[,] boutons = new Button[8, 8];
 
@@ -39,6 +36,8 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         public Reversi_Forms()
         {
             InitializeComponent();
+
+            this.MinimumSize = new Size(350, 410);
 
             imgNoir = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-noir.png");
             imgBlanc = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-blanc.png");
