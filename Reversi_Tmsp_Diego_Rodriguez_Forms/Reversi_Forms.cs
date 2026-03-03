@@ -8,10 +8,10 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
     public partial class Reversi_Forms : Form
     {
         //Déclaration des valeurs
-        private Image imgNoir;
-        private Image imgBlanc;
+        private Image imgJ1;
+        private Image imgJ2;
         private Image imgPlateau;
-        private Image imgGris;
+        private Image imgCoupPoss;
 
         //Tableau des caractères et des bouttons
         private Button[,] boutons = new Button[8, 8];
@@ -39,10 +39,10 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
             this.MinimumSize = new Size(350, 410);
 
-            imgNoir = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-noir.png");
-            imgBlanc = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-blanc.png");
-            imgGris = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\pion-gris.png");
-            imgPlateau = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\plateau.png");
+            imgJ1 = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Joueur_1.png");
+            imgJ2 = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Joueur_2.png");
+            imgCoupPoss = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Coup_possible.png");
+            imgPlateau = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Plateau.png");
 
             tableau.InitialiserGrille();
             InitialiserPlateau();
@@ -62,7 +62,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     {
                         if (coupposs.Couppossible(tableau.grille, ligne, col, joueur.sym, joueur.symop))
                         {
-                            boutons[ligne, col].BackgroundImage = imgGris;
+                            boutons[ligne, col].BackgroundImage = imgCoupPoss;
                         }
                         else
                         {
@@ -79,7 +79,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             barreInfo = new Panel();
             barreInfo.Dock = DockStyle.Top;
             barreInfo.Height = 50;
-            barreInfo.BackColor = Color.FromArgb(166, 201, 236);
+            barreInfo.BackColor = Color.FromArgb(51, 170, 68);
             barreInfo.Padding = new Padding(8, 4, 8, 4);
 
             //Image pion joueur actuel
@@ -104,7 +104,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             picNoir.Size = new Size(30, 30);
             picNoir.Location = new Point(200, 10);
             picNoir.SizeMode = PictureBoxSizeMode.StretchImage;
-            picNoir.Image = imgNoir;
+            picNoir.Image = imgJ1;
             barreInfo.Controls.Add(picNoir);
 
             //Label score noir
@@ -122,7 +122,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             picBlanc.Size = new Size(30, 30);
             picBlanc.Location = new Point(278, 10);
             picBlanc.SizeMode = PictureBoxSizeMode.StretchImage;
-            picBlanc.Image = imgBlanc;
+            picBlanc.Image = imgJ2;
             barreInfo.Controls.Add(picBlanc);
 
             //Label score blanc
@@ -143,12 +143,12 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             if (joueur.sym == "X")
             {
-                JoueurActuel.Image = imgNoir;
+                JoueurActuel.Image = imgJ1;
                 lblJoueurActuel.Text = "Tour";
             }
             else
             {
-                JoueurActuel.Image = imgBlanc;
+                JoueurActuel.Image = imgJ2;
                 lblJoueurActuel.Text = "Tour  :";
             }
 
@@ -208,12 +208,12 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     //Affichage des 4 pions au centre au début de la partie
                     if (ligne == 3 && colonne == 3 || ligne == 4 && colonne == 4)
                     {
-                        bout.BackgroundImage = imgNoir;
+                        bout.BackgroundImage = imgJ1;
                     }
 
                     else if (ligne == 3 && colonne == 4 || ligne == 4 && colonne == 3)
                     {
-                        bout.BackgroundImage = imgBlanc;
+                        bout.BackgroundImage = imgJ2;
                     }
 
                     bout.BackgroundImageLayout = ImageLayout.Stretch;
@@ -371,11 +371,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 {
                     if (tableau.grille[ligne, col] == 'X')
                     {
-                        boutons[ligne, col].BackgroundImage = imgNoir;
+                        boutons[ligne, col].BackgroundImage = imgJ1;
                     }
                     else if (tableau.grille[ligne, col] == 'O')
                     {
-                        boutons[ligne, col].BackgroundImage = imgBlanc;
+                        boutons[ligne, col].BackgroundImage = imgJ2;
                     }
                     else
                     {

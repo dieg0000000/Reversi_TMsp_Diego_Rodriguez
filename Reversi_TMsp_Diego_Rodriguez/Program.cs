@@ -152,7 +152,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         {
                             //Appel de la méthode qui vérifie si on peut jouer dans cette case
                             valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop);
-
+                            //valable = verif.Verifcoup(tableau.grille, coordonnee, joueur.sym, joueur.symop);
                             //Si oui place le pion
                             if (valable == true)
                             {
