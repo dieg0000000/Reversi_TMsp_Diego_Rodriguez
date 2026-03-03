@@ -119,46 +119,48 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                     if (estValide == true)
                     {
+                        Coords position = new Coords(0, 0);
+
                         //Prendre la lettre
-                        int xA = x[0];                                  //xA = A (LETTRE)
+                        position.X = x[0];                                  //position.X = A (LETTRE)
 
                         //Prendre le numéro
                         string x11 = x.Substring(1);
 
                         //Convertir le numéro
-                        int x1 = Convert.ToInt32(x11);                  //x1 = 1 (NUMERO)
+                        position.Y = Convert.ToInt32(x11);                  //x1 = 1 (NUMERO)
 
                         //Passer en valeur tableau
-                        x1 = x1 - 1;
+                        position.Y = position.Y - 1; 
                         
                         //Lettre en numero (A = 0)
-                        if (xA == 'A' || xA == 'a') xA = 0;
-                        else if (xA == 'B' || xA == 'b') xA = 1;
-                        else if (xA == 'C' || xA == 'c') xA = 2;
-                        else if (xA == 'D' || xA == 'd') xA = 3;
-                        else if (xA == 'E' || xA == 'e') xA = 4;
-                        else if (xA == 'F' || xA == 'f') xA = 5;
-                        else if (xA == 'G' || xA == 'g') xA = 6;
-                        else if (xA == 'H' || xA == 'h') xA = 7;
+                        if (position.X == 'A' || position.X == 'a') position.X = 0;
+                        else if (position.X == 'B' || position.X == 'b') position.X = 1;
+                        else if (position.X == 'C' || position.X == 'c') position.X = 2;
+                        else if (position.X == 'D' || position.X == 'd') position.X = 3;
+                        else if (position.X == 'E' || position.X == 'e') position.X = 4;
+                        else if (position.X == 'F' || position.X == 'f') position.X = 5;
+                        else if (position.X == 'G' || position.X == 'g') position.X = 6;
+                        else if (position.X == 'H' || position.X == 'h') position.X = 7;
                         else
                         {
                             Console.SetCursorPosition(0, 13);
                             Console.WriteLine("Entrée invalide !!");
                         }
                         Console.WriteLine();
-
+                        
                         //Si la case est vide
-                        if (tableau.grille[x1, xA] == ' ')
+                        if (tableau.grille[position.Y, position.X] == ' ')
                         {
-                            //Appel de la méthode qui vérifie si on peut jouer dans cette case
-                            valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop);
+                            valable = verif.Verifcoup(tableau.grille, new Coords(position.X, position.Y), joueur.sym, joueur.symop);
+
                             //valable = verif.Verifcoup(tableau.grille, coordonnee, joueur.sym, joueur.symop);
                             //Si oui place le pion
                             if (valable == true)
                             {
-                                tableau.grille[x1, xA] = Convert.ToChar(joueur.sym);
+                                tableau.grille[ position.Y, position.X] = Convert.ToChar(joueur.sym);
 
-                                Console.SetCursorPosition(xA, x1);
+                                Console.SetCursorPosition(position.X,  position.Y);
                                 Console.Write(joueur.sym);
 
                                 for (int ligne = 0; ligne < 8; ligne++)

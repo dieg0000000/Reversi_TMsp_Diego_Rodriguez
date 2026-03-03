@@ -359,10 +359,10 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         }
 
         //Gestion des coups à afficher dans les différents tableaux
-        private void jouerCoup(int x1, int xA)
+        private void jouerCoup(Coords posCoup)
         {
 
-            tableau.grille[x1, xA] = joueur.sym[0];
+            tableau.grille[posCoup.Y, posCoup.X] = joueur.sym[0];
 
             //Mise à jour du tableau en fonction de chaque casesw
             for (int ligne = 0; ligne < 8; ligne++)
@@ -415,15 +415,17 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             Button b = sender as Button;
             if (b.Tag is Point p)
             {
-                int x1 = p.X;  //ligne
-                int xA = p.Y;  //colonne
+                Coords position = new Coords(0, 0);
+
+                position.Y = p.X;  //ligne
+                position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = verif.Verifcoup(tableau.grille, x1, xA, joueur.sym, joueur.symop);
+                valable = verif.Verifcoup(tableau.grille, new Coords (position.X, position.Y), joueur.sym, joueur.symop);
 
                 if (valable == true)
                 {
-                    jouerCoup(x1, xA);
+                    jouerCoup(new Coords (position.X, position.Y));
 
                     joueur.tour++;
                     joueur.ChangerJoueur();
