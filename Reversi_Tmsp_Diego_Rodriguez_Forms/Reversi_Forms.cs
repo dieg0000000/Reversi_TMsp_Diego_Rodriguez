@@ -58,9 +58,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 for (int col = 0; col < 8; col++)
                 {
-                    if (tableau.grille[ligne, col] == ' ')
+                    if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                     {
-                        if (coupposs.Couppossible(tableau.grille, ligne, col, joueur.sym, joueur.symop))
+                        if (coupposs.Couppossible(new Coords(col, ligne), joueur.sym, joueur.symop))
                         {
                             boutons[ligne, col].BackgroundImage = imgCoupPoss;
                         }
@@ -141,7 +141,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Mise à jour de la barre d'information a chaque click
         private void MAJBarreInfo()
         {
-            if (joueur.sym == "X")
+            if (joueur.sym == true)
             {
                 JoueurActuel.Image = imgJ1;
                 lblJoueurActuel.Text = "Tour";
@@ -159,11 +159,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             for (int l = 0; l < 8; l++)
                 for (int c = 0; c < 8; c++)
                 {
-                    if (tableau.grille[l, c] == 'X')
-                    {
-                        nbNoir++;
+                    if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
+                    { 
+                        nbNoir++; 
                     }
-                    else if (tableau.grille[l, c] == 'O')
+                    else if (tableau.GetCase(new Coords(c, l)) == tableau.BLANC)
                     {
                         nbBlanc++;
                     }
@@ -240,13 +240,13 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    if (tableau.grille[l, c] == 'X')
+                    if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
                     {
                         nbNoir++;
                     }
                     else
                     {
-                        if (tableau.grille[l, c] == 'O')
+                        if (tableau.GetCase(new Coords(c, l)) == tableau.BLANC)
                         {
                             nbBlanc++;
                         }
@@ -304,7 +304,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    if (coupposs.Couppossible(tableau.grille, l, c, joueur.sym, joueur.symop))
+                    if (coupposs.Couppossible(new Coords(c, l), joueur.sym, joueur.symop))
                     {
                         coupPossible = true;
                         break;
@@ -334,7 +334,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 {
                     for (int c = 0; c < 8; c++)
                     {
-                        if (coupposs.Couppossible(tableau.grille, l, c, joueur.sym, joueur.symop))
+                        if (coupposs.Couppossible(new Coords(c, l), joueur.sym, joueur.symop))
                         {
                             autreCoupPossible = true;
                             break;
@@ -362,18 +362,18 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private void jouerCoup(Coords posCoup)
         {
 
-            tableau.grille[posCoup.Y, posCoup.X] = joueur.sym[0];
+            tableau.SetCase(posCoup, joueur.sym);
 
             //Mise à jour du tableau en fonction de chaque casesw
             for (int ligne = 0; ligne < 8; ligne++)
             {
                 for (int col = 0; col < 8; col++)
                 {
-                    if (tableau.grille[ligne, col] == 'X')
+                    if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
                     {
                         boutons[ligne, col].BackgroundImage = imgJ1;
                     }
-                    else if (tableau.grille[ligne, col] == 'O')
+                    else if (tableau.GetCase(new Coords(col, ligne)) == tableau.BLANC)
                     {
                         boutons[ligne, col].BackgroundImage = imgJ2;
                     }
@@ -397,7 +397,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    if (tableau.grille[l, c] == ' ')
+                    if (tableau.GetCase(new Coords(c, l)) == tableau.VIDE)
                     {
                         nbVide++;
                     }
@@ -421,7 +421,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = verif.Verifcoup(tableau.grille, new Coords (position.X, position.Y), joueur.sym, joueur.symop);
+                valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.sym, joueur.symop);
 
                 if (valable == true)
                 {

@@ -4,175 +4,166 @@ namespace Lib_Reversi
 {
     public class verif
     {
-        //Vérifications
-        public static bool Verifcoup(char[,] grille, Coords pos, string sym, string symop)
+        public static bool Verifcoup(Coords pos, bool? sym, bool? symop)
         {
             bool valable = false;
 
             //En dessous
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.Y + i < 8 && grille[pos.Y + i, pos.X] == Convert.ToChar(symop))
+                while (pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.Y + i < 8 && i > 1 && grille[pos.Y + i, pos.X] == Convert.ToChar(sym))
+                if (pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y + j, pos.X] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X, pos.Y + j), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //En dessus
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.Y - i >= 0 && grille[pos.Y - i, pos.X] == Convert.ToChar(symop))
+                while (pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.Y - i >= 0 && i > 1 && grille[pos.Y - i, pos.X] == Convert.ToChar(sym))
+                if (pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y - j, pos.X] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X, pos.Y - j), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //A gauche
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && grille[pos.Y, pos.X - i] == Convert.ToChar(symop))
+                while (pos.X - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && i > 1 && grille[pos.Y, pos.X - i] == Convert.ToChar(sym))
+                if (pos.X - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y, pos.X - j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //A droite
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && grille[pos.Y, pos.X + i] == Convert.ToChar(symop))
+                while (pos.X + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && i > 1 && grille[pos.Y, pos.X + i] == Convert.ToChar(sym))
+                if (pos.X + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y, pos.X + j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //Diagonale / vers le bas
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && pos.Y + i < 8 && grille[pos.Y + i, pos.X - i] == Convert.ToChar(symop))
+                while (pos.X - i >= 0 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && pos.Y + i < 8 && i > 1 && grille[pos.Y + i, pos.X - i] == Convert.ToChar(sym))
+                if (pos.X - i >= 0 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y + j, pos.X - j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y + j), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //Diagonale / vers le haut
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && pos.Y - i >= 0 && grille[pos.Y - i, pos.X + i] == Convert.ToChar(symop))
+                while (pos.X + i < 8 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && pos.Y - i >= 0 && i > 1 && grille[pos.Y - i, pos.X + i] == Convert.ToChar(sym))
+                if (pos.X + i < 8 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y - j, pos.X + j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y - j), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //Diagonale \ vers le bas
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && pos.Y + i < 8 && grille[pos.Y + i, pos.X + i] == Convert.ToChar(symop))
+                while (pos.X + i < 8 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && pos.Y + i < 8 && i > 1 && grille[pos.Y + i, pos.X + i] == Convert.ToChar(sym))
+                if (pos.X + i < 8 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y + j, pos.X + j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y + j), sym);
                     }
-
                     valable = true;
                 }
             }
 
             //Diagonale \ vers le haut
-            if (grille[pos.Y, pos.X] == ' ')
+            if (tableau.GetCase(pos) == tableau.VIDE)
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && pos.Y - i >= 0 && grille[pos.Y - i, pos.X - i] == Convert.ToChar(symop))
+                while (pos.X - i >= 0 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == symop)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && pos.Y - i >= 0 && i > 1 && grille[pos.Y - i, pos.X - i] == Convert.ToChar(sym))
+                if (pos.X - i >= 0 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == sym)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        grille[pos.Y - j, pos.X - j] = Convert.ToChar(sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y - j), sym);
                     }
-
                     valable = true;
                 }
             }
