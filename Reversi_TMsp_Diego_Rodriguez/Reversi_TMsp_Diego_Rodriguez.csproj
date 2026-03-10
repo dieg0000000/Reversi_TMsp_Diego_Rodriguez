@@ -33,8 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lib_Reversi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Lib_Reversi">
       <HintPath>..\Lib_Reversi\Lib_Reversi\bin\Debug\Lib_Reversi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
