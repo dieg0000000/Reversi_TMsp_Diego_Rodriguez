@@ -18,12 +18,10 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 Console.ReadLine();
             }
 
-            ///////////////////////////////////////////////
-
-
-
             Console.Clear();
             bool jeu = true;
+
+            //
             do
             {
                 Console.WriteLine("  A B C D E F G H");
@@ -42,6 +40,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     Console.WriteLine();
                 }
 
+                //
                 for (int l = 1; l < 9; l++)
                 {
                     Console.SetCursorPosition(0, l);
@@ -72,7 +71,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                 //Instructions
                 Console.SetCursorPosition(0, 10);
-                Console.WriteLine("Au tour du joueur " + (joueur.sym == true ? "X" : "O"));
+                Console.WriteLine("Au tour du joueur " + (joueur.JoueurActif == true ? "X" : "O"));
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
                 Console.SetCursorPosition(34, 11);
@@ -93,7 +92,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         {
                             if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                             {
-                                if (coupposs.Couppossible(new Coords(col, ligne), joueur.sym, joueur.symop))
+                                if (coupposs.Couppossible(new Coords(col, ligne), joueur.JoueurActif, joueur.JoueurPassif))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                     Console.Write("+");
@@ -110,7 +109,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                     //Instruction
                     Console.SetCursorPosition(0, 10);
-                    Console.WriteLine("Au tour du joueur " + (joueur.sym == true ? "X" : "O"));
+                    Console.WriteLine("Au tour du joueur " + (joueur.JoueurActif == true ? "X" : "O"));
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 11);
@@ -130,6 +129,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     //Vérification de l'entrée de l'utilisateur
                     bool estValide = Regex.IsMatch(x, pattern);
 
+                    //
                     if (estValide == true)
                     {
                         Coords position = new Coords(0, 0);
@@ -165,15 +165,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         //Si la case est vide
                         if (tableau.GetCase(new Coords(position.X, position.Y)) == tableau.VIDE)
                         {
-                            valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.sym, joueur.symop);
+                            valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.JoueurActif, joueur.JoueurPassif);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
-                                tableau.SetCase(new Coords(position.X, position.Y), joueur.sym);
+                                tableau.SetCase(new Coords(position.X, position.Y), joueur.JoueurActif);
 
                                 Console.SetCursorPosition(position.X * 2 + 2, position.Y + 1);
-                                Console.Write(joueur.sym == true ? "X" : "O");
+                                Console.Write(joueur.JoueurActif == true ? "X" : "O");
 
                                 for (int ligne = 0; ligne < 8; ligne++)
                                 {
@@ -218,6 +218,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             Console.Write("Case occupée !!");
                         }
 
+                        //
                         for (int i = 0; i < 8; i++)
                         {
                             for (int j = 0; j < 8; j++)

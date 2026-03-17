@@ -24,7 +24,7 @@
         //    plateau[4, 4] = 'X';
         //}
 
-
+        //
         private static bool?[,] plateau = new bool?[8, 8];
 
         public static readonly bool? NOIR = true;

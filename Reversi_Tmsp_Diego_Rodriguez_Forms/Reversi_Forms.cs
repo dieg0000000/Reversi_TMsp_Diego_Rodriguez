@@ -7,7 +7,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 {
     public partial class Reversi_Forms : Form
     {
-        //Déclaration des valeurs
+        // images du jeu
         private Image imgJ1;
         private Image imgJ2;
         private Image imgPlateau;
@@ -19,7 +19,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Initiation des valeurs
         private bool Partie_finie = false;
 
-        //Classe de la fenêtre
+        // controle pour la fenêtre
         private TableLayoutPanel plateauPanel;
 
         //Barre d'info
@@ -60,7 +60,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 {
                     if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                     {
-                        if (coupposs.Couppossible(new Coords(col, ligne), joueur.sym, joueur.symop))
+                        if (coupposs.Couppossible(new Coords(col, ligne), joueur.JoueurActif, joueur.JoueurPassif))
                         {
                             boutons[ligne, col].BackgroundImage = imgCoupPoss;
                         }
@@ -141,7 +141,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Mise à jour de la barre d'information a chaque click
         private void MAJBarreInfo()
         {
-            if (joueur.sym == true)
+            if (joueur.JoueurActif == true)
             {
                 JoueurActuel.Image = imgJ1;
                 lblJoueurActuel.Text = "Tour";
@@ -156,6 +156,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             int nbNoir = 0;
             int nbBlanc = 0;
 
+            //
             for (int l = 0; l < 8; l++)
                 for (int c = 0; c < 8; c++)
                 {
@@ -183,6 +184,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
             for (int i = 0; i < 8; i++)
                 plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 8f));
+
             for (int i = 0; i < 8; i++)
                 plateauPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 8f));
 
@@ -304,7 +306,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 for (int c = 0; c < 8; c++)
                 {
-                    if (coupposs.Couppossible(new Coords(c, l), joueur.sym, joueur.symop))
+                    if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
                     {
                         coupPossible = true;
                         break;
@@ -334,7 +336,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 {
                     for (int c = 0; c < 8; c++)
                     {
-                        if (coupposs.Couppossible(new Coords(c, l), joueur.sym, joueur.symop))
+                        if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
                         {
                             autreCoupPossible = true;
                             break;
@@ -362,7 +364,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private void jouerCoup(Coords posCoup)
         {
 
-            tableau.SetCase(posCoup, joueur.sym);
+            tableau.SetCase(posCoup, joueur.JoueurActif);
 
             //Mise à jour du tableau en fonction de chaque casesw
             for (int ligne = 0; ligne < 8; ligne++)
@@ -421,7 +423,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.sym, joueur.symop);
+                valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.JoueurActif, joueur.JoueurPassif);
 
                 if (valable == true)
                 {

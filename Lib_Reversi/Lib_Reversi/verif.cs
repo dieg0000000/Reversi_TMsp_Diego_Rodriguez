@@ -4,7 +4,7 @@ namespace Lib_Reversi
 {
     public class verif
     {
-        public static bool Verifcoup(Coords pos, bool? sym, bool? symop)
+        public static bool Verifcoup(Coords pos, bool? JoueurActif, bool? JoueurPassif)
         {
             bool valable = false;
 
@@ -13,16 +13,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == symop)
+                while (pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == sym)
+                if (pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X, pos.Y + j), sym);
+                        tableau.SetCase(new Coords(pos.X, pos.Y + j), JoueurActif);
                     }
                     valable = true;
                 }
@@ -33,16 +33,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == symop)
+                while (pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == sym)
+                if (pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y - i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X, pos.Y - j), sym);
+                        tableau.SetCase(new Coords(pos.X, pos.Y - j), JoueurActif);
                     }
                     valable = true;
                 }
@@ -53,16 +53,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == symop)
+                while (pos.X - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == sym)
+                if (pos.X - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X - j, pos.Y), sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y), JoueurActif);
                     }
                     valable = true;
                 }
@@ -73,16 +73,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == symop)
+                while (pos.X + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == sym)
+                if (pos.X + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X + j, pos.Y), sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y), JoueurActif);
                     }
                     valable = true;
                 }
@@ -93,16 +93,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == symop)
+                while (pos.X - i >= 0 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == sym)
+                if (pos.X - i >= 0 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X - j, pos.Y + j), sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y + j), JoueurActif);
                     }
                     valable = true;
                 }
@@ -113,16 +113,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == symop)
+                while (pos.X + i < 8 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == sym)
+                if (pos.X + i < 8 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X + j, pos.Y - j), sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y - j), JoueurActif);
                     }
                     valable = true;
                 }
@@ -133,16 +133,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X + i < 8 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == symop)
+                while (pos.X + i < 8 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X + i < 8 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == sym)
+                if (pos.X + i < 8 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X + j, pos.Y + j), sym);
+                        tableau.SetCase(new Coords(pos.X + j, pos.Y + j), JoueurActif);
                     }
                     valable = true;
                 }
@@ -153,16 +153,16 @@ namespace Lib_Reversi
             {
                 int i = 1;
 
-                while (pos.X - i >= 0 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == symop)
+                while (pos.X - i >= 0 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == JoueurPassif)
                 {
                     i++;
                 }
 
-                if (pos.X - i >= 0 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == sym)
+                if (pos.X - i >= 0 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y - i)) == JoueurActif)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        tableau.SetCase(new Coords(pos.X - j, pos.Y - j), sym);
+                        tableau.SetCase(new Coords(pos.X - j, pos.Y - j), JoueurActif);
                     }
                     valable = true;
                 }
