@@ -95,7 +95,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
-                                    Console.Write("+");
+                                    Console.Write("·");
                                     comptPossible++;
                                 }
 
