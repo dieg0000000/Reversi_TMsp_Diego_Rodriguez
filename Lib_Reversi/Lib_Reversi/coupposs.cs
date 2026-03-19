@@ -3,13 +3,6 @@ namespace Lib_Reversi
 {
     public class coupposs
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="JoueurActif"></param>
-        /// <param name="JoueurPassif"></param>
-        /// <returns></returns>
         public static bool Couppossible(Coords pos, bool? JoueurActif, bool? JoueurPassif)
         {
             if (tableau.GetCase(pos) != tableau.VIDE) return false;

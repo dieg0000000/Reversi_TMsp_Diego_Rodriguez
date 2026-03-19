@@ -7,7 +7,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 {
     public partial class Reversi_Forms : Form
     {
-        // images du jeu
+        //Images du jeu
         private Image imgJ1;
         private Image imgJ2;
         private Image imgPlateau;
@@ -16,13 +16,13 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Tableau des caractères et des bouttons
         private Button[,] boutons = new Button[8, 8];
 
-        //Initiation des valeurs
+        //Initiation de la valeur de la partie
         private bool Partie_finie = false;
 
-        // controle pour la fenêtre
+        //Controle pour la fenêtre
         private TableLayoutPanel plateauPanel;
 
-        //Barre d'info
+        //Informations de la barre d'info
         private Panel barreInfo;
         private PictureBox JoueurActuel;
         private Label lblJoueurActuel;
@@ -149,14 +149,14 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             else
             {
                 JoueurActuel.Image = imgJ2;
-                lblJoueurActuel.Text = "Tour  :";
+                lblJoueurActuel.Text = "Tour";
             }
 
             //Compter les pions pour la barre
             int nbNoir = 0;
             int nbBlanc = 0;
 
-            //
+            //Boucle qui compte le nombre de pions Noirs et Blancs dans le tableau
             for (int l = 0; l < 8; l++)
                 for (int c = 0; c < 8; c++)
                 {
@@ -170,6 +170,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     }
                 }
 
+            //Afficher les valeurs dans la barre d'info
             lblNoir.Text = nbNoir.ToString();
             lblBlanc.Text = nbBlanc.ToString();
         }
@@ -182,12 +183,18 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             plateauPanel.ColumnCount = 8;
             plateauPanel.RowCount = 8;
 
+            //Configurer 8 colonnes de taille égale
             for (int i = 0; i < 8; i++)
+            {
                 plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 8f));
+            }
 
+            //Configurer 8 lignes de taille égale
             for (int i = 0; i < 8; i++)
+            {
                 plateauPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 8f));
-
+            }
+            
             plateauPanel.BackgroundImage = imgPlateau;
             plateauPanel.BackgroundImageLayout = ImageLayout.Stretch;
             this.Controls.Add(plateauPanel);
@@ -276,12 +283,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             }
 
             //Affichage du messageBox
-            DialogResult result = MessageBox.Show(
-                message + "\n\nRejouer ?",
-                "Fin de partie",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            DialogResult result = MessageBox.Show(message + "\n\nRejouer ?", "Fin de partie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {

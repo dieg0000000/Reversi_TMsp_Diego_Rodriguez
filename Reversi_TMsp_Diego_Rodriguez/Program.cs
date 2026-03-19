@@ -21,11 +21,10 @@ namespace Reversi_TMsp_Diego_Rodriguez
             Console.Clear();
             bool jeu = true;
 
-            //
+            //Lancement de la partie
             do
             {
                 Console.WriteLine("  A B C D E F G H");
-
 
                 tableau.InitialiserGrille();
 
@@ -40,7 +39,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     Console.WriteLine();
                 }
 
-                //
+                //Afficher le numro des lignes 
                 for (int l = 1; l < 9; l++)
                 {
                     Console.SetCursorPosition(0, l);
@@ -92,12 +91,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         {
                             if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                             {
+                                //Si un coup est possible, on afifhe le coup dans la console
                                 if (coupposs.Couppossible(new Coords(col, ligne), joueur.JoueurActif, joueur.JoueurPassif))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                     Console.Write("+");
                                     comptPossible++;
                                 }
+
+                                //Si la case est vide, on affiche rien 
                                 else
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
@@ -129,7 +131,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     //Vérification de l'entrée de l'utilisateur
                     bool estValide = Regex.IsMatch(x, pattern);
 
-                    //
+                    //Si l'entrée suit le bon format on décapsule les valeurs
                     if (estValide == true)
                     {
                         Coords position = new Coords(0, 0);
@@ -170,21 +172,26 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             //Si oui place le pion
                             if (valable == true)
                             {
+                                //Ajouter le coup dans le tableau
                                 tableau.SetCase(new Coords(position.X, position.Y), joueur.JoueurActif);
 
+                                //Afficher le joueur actuel
                                 Console.SetCursorPosition(position.X * 2 + 2, position.Y + 1);
                                 Console.Write(joueur.JoueurActif == true ? "X" : "O");
 
+                                //Réaffichage de tout le tableau dans la console en fonction des valeurs du plateau invisible
                                 for (int ligne = 0; ligne < 8; ligne++)
                                 {
                                     for (int col = 0; col < 8; col++)
                                     {
-                                        // Après
+                                        //Si la case est noire, on place un pion noir (X) dans la case visuelle
                                         if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
                                         {
                                             Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                             Console.Write("X");
                                         }
+
+                                        //Si la case est blanche, on place un pion blanc (O) dans la case visuelle
                                         else if (tableau.GetCase(new Coords(col, ligne)) == tableau.BLANC)
                                         {
                                             Console.SetCursorPosition(col * 2 + 2, ligne + 1);
@@ -218,7 +225,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             Console.Write("Case occupée !!");
                         }
 
-                        //
+                        //Comptage des pions pour afficher les valeurs dnas la console
                         for (int i = 0; i < 8; i++)
                         {
                             for (int j = 0; j < 8; j++)
