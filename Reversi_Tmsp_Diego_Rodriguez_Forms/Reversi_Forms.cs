@@ -8,8 +8,8 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
     public partial class Reversi_Forms : Form
     {
         //Images du jeu
-        private Image imgJ1;
-        private Image imgJ2;
+        private Image imgJNoir;
+        private Image imgJBlanc;
         private Image imgPlateau;
         private Image imgCoupPoss;
 
@@ -31,6 +31,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private PictureBox picBlanc;
         private Label lblBlanc;
 
+        
 
         //Initialisations (appel des méthodes)
         public Reversi_Forms()
@@ -39,10 +40,10 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
             this.MinimumSize = new Size(350, 410);
 
-            imgJ1 = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Joueur_1.png");
-            imgJ2 = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Joueur_2.png");
-            imgCoupPoss = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Coup_possible.png");
-            imgPlateau = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Plateau.png");
+            imgJNoir = Resource1.Joueur_X_True;
+            imgJBlanc = Resource1.Joueur_O_False;
+            imgCoupPoss = Resource1.Coup_possible;
+            imgPlateau = Resource1.Plateau;
 
             Plateau.InitialiserGrille();
             InitialiserPlateau();
@@ -104,7 +105,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             picNoir.Size = new Size(30, 30);
             picNoir.Location = new Point(200, 10);
             picNoir.SizeMode = PictureBoxSizeMode.StretchImage;
-            picNoir.Image = imgJ1;
+            picNoir.Image = imgJNoir;
             barreInfo.Controls.Add(picNoir);
 
             //Label score noir
@@ -122,7 +123,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             picBlanc.Size = new Size(30, 30);
             picBlanc.Location = new Point(278, 10);
             picBlanc.SizeMode = PictureBoxSizeMode.StretchImage;
-            picBlanc.Image = imgJ2;
+            picBlanc.Image = imgJBlanc;
             barreInfo.Controls.Add(picBlanc);
 
             //Label score blanc
@@ -136,6 +137,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             barreInfo.Controls.Add(lblBlanc);
 
             this.Controls.Add(barreInfo);
+            this.Icon = Resource1.Icone_reversi;
         }
 
         //Mise à jour de la barre d'information a chaque click
@@ -143,12 +145,12 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             if (Joueur.JoueurActif == true)
             {
-                JoueurActuel.Image = imgJ1;
+                JoueurActuel.Image = imgJNoir;
                 lblJoueurActuel.Text = "Tour";
             }
             else
             {
-                JoueurActuel.Image = imgJ2;
+                JoueurActuel.Image = imgJBlanc;
                 lblJoueurActuel.Text = "Tour";
             }
 
@@ -217,12 +219,12 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     //Affichage des 4 pions au centre au début de la partie
                     if (ligne == 3 && colonne == 3 || ligne == 4 && colonne == 4)
                     {
-                        bout.BackgroundImage = imgJ1;
+                        bout.BackgroundImage = imgJNoir;
                     }
 
                     else if (ligne == 3 && colonne == 4 || ligne == 4 && colonne == 3)
                     {
-                        bout.BackgroundImage = imgJ2;
+                        bout.BackgroundImage = imgJBlanc;
                     }
 
                     bout.BackgroundImageLayout = ImageLayout.Stretch;
@@ -375,11 +377,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 {
                     if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.NOIR)
                     {
-                        boutons[ligne, col].BackgroundImage = imgJ1;
+                        boutons[ligne, col].BackgroundImage = imgJNoir;
                     }
                     else if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.BLANC)
                     {
-                        boutons[ligne, col].BackgroundImage = imgJ2;
+                        boutons[ligne, col].BackgroundImage = imgJBlanc;
                     }
                     else
                     {

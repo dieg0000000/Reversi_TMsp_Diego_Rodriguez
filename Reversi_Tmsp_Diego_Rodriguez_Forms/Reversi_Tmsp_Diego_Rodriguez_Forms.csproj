@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reversi_Forms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +72,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reversi_Forms.resx">
       <DependentUpon>Reversi_Forms.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +93,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plateau.png" />
+    <None Include="Assets\Coup_possible.png" />
+    <None Include="Assets\Icone_reversi.ico" />
+    <None Include="Assets\Joueur_1.png" />
+    <None Include="Assets\Joueur_2.png" />
     <Content Include="Plateau.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
