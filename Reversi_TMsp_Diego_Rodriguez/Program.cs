@@ -29,9 +29,9 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 tableau.InitialiserGrille();
 
                 //Afficher la plateau
-                for (int ligne = 0; ligne < 8; ligne++)
+                for (int ligne = 0; ligne < tableau.nbCases; ligne++)
                 {
-                    for (int col = 0; col < 8; col++)
+                    for (int col = 0; col < tableau.nbCases; col++)
                     {
                         Console.SetCursorPosition(col * 2 + 1, ligne + 1);
                         Console.Write("   ");
@@ -85,9 +85,9 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     int comptPossible = 0;
 
                     //Affichage des coups possibles
-                    for (int ligne = 0; ligne < 8; ligne++)
+                    for (int ligne = 0; ligne < tableau.nbCases; ligne++)
                     {
-                        for (int col = 0; col < 8; col++)
+                        for (int col = 0; col < tableau.nbCases; col++)
                         {
                             if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                             {
@@ -180,9 +180,9 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 Console.Write(joueur.JoueurActif == true ? "X" : "O");
 
                                 //Réaffichage de tout le tableau dans la console en fonction des valeurs du plateau invisible
-                                for (int ligne = 0; ligne < 8; ligne++)
+                                for (int ligne = 0; ligne < tableau.nbCases; ligne++)
                                 {
-                                    for (int col = 0; col < 8; col++)
+                                    for (int col = 0; col < tableau.nbCases; col++)
                                     {
                                         //Si la case est noire, on place un pion noir (X) dans la case visuelle
                                         if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
@@ -226,9 +226,9 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
 
                         //Comptage des pions pour afficher les valeurs dnas la console
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < tableau.nbCases; i++)
                         {
-                            for (int j = 0; j < 8; j++)
+                            for (int j = 0; j < tableau.nbCases; j++)
                             {
                                 if (tableau.GetCase(new Coords(j, i)) == tableau.NOIR)
                                 {

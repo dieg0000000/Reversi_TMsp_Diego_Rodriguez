@@ -14,7 +14,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private Image imgCoupPoss;
 
         //Tableau des caractères et des bouttons
-        private Button[,] boutons = new Button[8, 8];
+        private Button[,] boutons = new Button[tableau.nbCases, tableau.nbCases];
 
         //Initiation de la valeur de la partie
         private bool Partie_finie = false;
@@ -54,9 +54,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Affichage des coups possible en gris
         private void affichagePossible()
         {
-            for (int ligne = 0; ligne < 8; ligne++)
+            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < tableau.nbCases; col++)
                 {
                     if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
                     {
@@ -157,8 +157,8 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             int nbBlanc = 0;
 
             //Boucle qui compte le nombre de pions Noirs et Blancs dans le tableau
-            for (int l = 0; l < 8; l++)
-                for (int c = 0; c < 8; c++)
+            for (int l = 0; l < tableau.nbCases; l++)
+                for (int c = 0; c < tableau.nbCases; c++)
                 {
                     if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
                     { 
@@ -180,17 +180,17 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             plateauPanel = new TableLayoutPanel();
             plateauPanel.Dock = DockStyle.Fill;
-            plateauPanel.ColumnCount = 8;
-            plateauPanel.RowCount = 8;
+            plateauPanel.ColumnCount = tableau.nbCases;
+            plateauPanel.RowCount = tableau.nbCases;
 
             //Configurer 8 colonnes de taille égale
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < tableau.nbCases; i++)
             {
                 plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 8f));
             }
 
             //Configurer 8 lignes de taille égale
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < tableau.nbCases; i++)
             {
                 plateauPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 8f));
             }
@@ -201,9 +201,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
 
             //Boucle qui insert des bouttons dans chaque cases du tableau
-            for (int ligne = 0; ligne < 8; ligne++)
+            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
             {
-                for (int colonne = 0; colonne < 8; colonne++)
+                for (int colonne = 0; colonne < tableau.nbCases; colonne++)
                 {
                     Button bout = new Button();
                     bout.Dock = DockStyle.Fill;
@@ -245,9 +245,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             int nbBlanc = 0;
 
             //Comptage des pions pour les afficher dans le messageBox
-            for (int l = 0; l < 8; l++)
+            for (int l = 0; l < tableau.nbCases; l++)
             {
-                for (int c = 0; c < 8; c++)
+                for (int c = 0; c < tableau.nbCases; c++)
                 {
                     if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
                     {
@@ -304,9 +304,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             bool coupPossible = false;
 
             //Si pas de coups possibles, passer son tour
-            for (int l = 0; l < 8; l++)
+            for (int l = 0; l < tableau.nbCases; l++)
             {
-                for (int c = 0; c < 8; c++)
+                for (int c = 0; c < tableau.nbCases; c++)
                 {
                     if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
                     {
@@ -334,9 +334,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 //Vérifier si l'autre joueur peut jouer
                 bool autreCoupPossible = false;
 
-                for (int l = 0; l < 8; l++)
+                for (int l = 0; l < tableau.nbCases; l++)
                 {
-                    for (int c = 0; c < 8; c++)
+                    for (int c = 0; c < tableau.nbCases; c++)
                     {
                         if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
                         {
@@ -369,9 +369,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             tableau.SetCase(posCoup, joueur.JoueurActif);
 
             //Mise à jour du tableau en fonction de chaque casesw
-            for (int ligne = 0; ligne < 8; ligne++)
+            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < tableau.nbCases; col++)
                 {
                     if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
                     {
@@ -397,9 +397,9 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             //Compter les cases vides
             int nbVide = 0;
 
-            for (int l = 0; l < 8; l++)
+            for (int l = 0; l < tableau.nbCases; l++)
             {
-                for (int c = 0; c < 8; c++)
+                for (int c = 0; c < tableau.nbCases; c++)
                 {
                     if (tableau.GetCase(new Coords(c, l)) == tableau.VIDE)
                     {

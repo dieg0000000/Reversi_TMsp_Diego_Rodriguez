@@ -9,11 +9,11 @@ namespace Lib_Reversi
 
             //En dessous
             int i = 1;
-            while (pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurPassif)
+            while (pos.Y + i < tableau.nbCases && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurPassif)
             {
                 i++;
             }
-            if (pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurActif)
+            if (pos.Y + i < tableau.nbCases && i > 1 && tableau.GetCase(new Coords(pos.X, pos.Y + i)) == JoueurActif)
             {
                 return true;
             }
@@ -42,44 +42,44 @@ namespace Lib_Reversi
 
             //A droite
             i = 1;
-            while (pos.X + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurPassif)
+            while (pos.X + i < tableau.nbCases && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurPassif)
             {
                 i++;
             }
-            if (pos.X + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurActif)
+            if (pos.X + i < tableau.nbCases && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y)) == JoueurActif)
             {
                 return true;
             }
 
             //Diagonale / vers le bas
             i = 1;
-            while (pos.X - i >= 0 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurPassif)
+            while (pos.X - i >= 0 && pos.Y + i < tableau.nbCases && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurPassif)
             {
                 i++;
             }
-            if (pos.X - i >= 0 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurActif)
+            if (pos.X - i >= 0 && pos.Y + i < tableau.nbCases && i > 1 && tableau.GetCase(new Coords(pos.X - i, pos.Y + i)) == JoueurActif)
             {
                 return true;
             }
 
             //Diagonale / vers le haut
             i = 1;
-            while (pos.X + i < 8 && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurPassif)
+            while (pos.X + i < tableau.nbCases && pos.Y - i >= 0 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurPassif)
             {
                 i++;
             }
-            if (pos.X + i < 8 && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurActif)
+            if (pos.X + i < tableau.nbCases && pos.Y - i >= 0 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y - i)) == JoueurActif)
             {
                 return true;
             }
 
             //Diagonale \ vers le bas
             i = 1;
-            while (pos.X + i < 8 && pos.Y + i < 8 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurPassif)
+            while (pos.X + i < tableau.nbCases && pos.Y + i < tableau.nbCases && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurPassif)
             {
                 i++;
             }
-            if (pos.X + i < 8 && pos.Y + i < 8 && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurActif)
+            if (pos.X + i < tableau.nbCases && pos.Y + i < tableau.nbCases && i > 1 && tableau.GetCase(new Coords(pos.X + i, pos.Y + i)) == JoueurActif)
             {
                 return true;
             }
