@@ -14,7 +14,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private Image imgCoupPoss;
 
         //Tableau des caractères et des bouttons
-        private Button[,] boutons = new Button[tableau.nbCases, tableau.nbCases];
+        private Button[,] boutons = new Button[Plateau.nbCases, Plateau.nbCases];
 
         //Initiation de la valeur de la partie
         private bool Partie_finie = false;
@@ -44,7 +44,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             imgCoupPoss = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Coup_possible.png");
             imgPlateau = Image.FromFile(@"D:\TMsp\Code\Reversi_TMsp_Diego_Rodriguez\Reversi_Tmsp_Diego_Rodriguez_Forms\Assets\Plateau.png");
 
-            tableau.InitialiserGrille();
+            Plateau.InitialiserGrille();
             InitialiserPlateau();
             InitialiserBarreInfo();
             affichagePossible();
@@ -54,13 +54,13 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Affichage des coups possible en gris
         private void affichagePossible()
         {
-            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+            for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
             {
-                for (int col = 0; col < tableau.nbCases; col++)
+                for (int col = 0; col < Plateau.nbCases; col++)
                 {
-                    if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
+                    if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
                     {
-                        if (coupposs.Couppossible(new Coords(col, ligne), joueur.JoueurActif, joueur.JoueurPassif))
+                        if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
                         {
                             boutons[ligne, col].BackgroundImage = imgCoupPoss;
                         }
@@ -141,7 +141,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         //Mise à jour de la barre d'information a chaque click
         private void MAJBarreInfo()
         {
-            if (joueur.JoueurActif == true)
+            if (Joueur.JoueurActif == true)
             {
                 JoueurActuel.Image = imgJ1;
                 lblJoueurActuel.Text = "Tour";
@@ -156,15 +156,15 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             int nbNoir = 0;
             int nbBlanc = 0;
 
-            //Boucle qui compte le nombre de pions Noirs et Blancs dans le tableau
-            for (int l = 0; l < tableau.nbCases; l++)
-                for (int c = 0; c < tableau.nbCases; c++)
+            //Boucle qui compte le nombre de pions Noirs et Blancs dans le Plateau
+            for (int l = 0; l < Plateau.nbCases; l++)
+                for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
+                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.NOIR)
                     { 
                         nbNoir++; 
                     }
-                    else if (tableau.GetCase(new Coords(c, l)) == tableau.BLANC)
+                    else if (Plateau.GetCase(new Coords(c, l)) == Plateau.BLANC)
                     {
                         nbBlanc++;
                     }
@@ -180,17 +180,17 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             plateauPanel = new TableLayoutPanel();
             plateauPanel.Dock = DockStyle.Fill;
-            plateauPanel.ColumnCount = tableau.nbCases;
-            plateauPanel.RowCount = tableau.nbCases;
+            plateauPanel.ColumnCount = Plateau.nbCases;
+            plateauPanel.RowCount = Plateau.nbCases;
 
             //Configurer 8 colonnes de taille égale
-            for (int i = 0; i < tableau.nbCases; i++)
+            for (int i = 0; i < Plateau.nbCases; i++)
             {
                 plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 8f));
             }
 
             //Configurer 8 lignes de taille égale
-            for (int i = 0; i < tableau.nbCases; i++)
+            for (int i = 0; i < Plateau.nbCases; i++)
             {
                 plateauPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 8f));
             }
@@ -200,10 +200,10 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             this.Controls.Add(plateauPanel);
 
 
-            //Boucle qui insert des bouttons dans chaque cases du tableau
-            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+            //Boucle qui insert des bouttons dans chaque cases du Plateau
+            for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
             {
-                for (int colonne = 0; colonne < tableau.nbCases; colonne++)
+                for (int colonne = 0; colonne < Plateau.nbCases; colonne++)
                 {
                     Button bout = new Button();
                     bout.Dock = DockStyle.Fill;
@@ -245,17 +245,17 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             int nbBlanc = 0;
 
             //Comptage des pions pour les afficher dans le messageBox
-            for (int l = 0; l < tableau.nbCases; l++)
+            for (int l = 0; l < Plateau.nbCases; l++)
             {
-                for (int c = 0; c < tableau.nbCases; c++)
+                for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (tableau.GetCase(new Coords(c, l)) == tableau.NOIR)
+                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.NOIR)
                     {
                         nbNoir++;
                     }
                     else
                     {
-                        if (tableau.GetCase(new Coords(c, l)) == tableau.BLANC)
+                        if (Plateau.GetCase(new Coords(c, l)) == Plateau.BLANC)
                         {
                             nbBlanc++;
                         }
@@ -304,11 +304,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             bool coupPossible = false;
 
             //Si pas de coups possibles, passer son tour
-            for (int l = 0; l < tableau.nbCases; l++)
+            for (int l = 0; l < Plateau.nbCases; l++)
             {
-                for (int c = 0; c < tableau.nbCases; c++)
+                for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
+                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
                     {
                         coupPossible = true;
                         break;
@@ -326,19 +326,19 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             {
                 MessageBox.Show("Aucun coup possible pour ce joueur");
 
-                joueur.tour++;
-                joueur.ChangerJoueur();
+                Joueur.tour++;
+                Joueur.ChangerJoueur();
                 MAJBarreInfo();
                 affichagePossible();
 
                 //Vérifier si l'autre joueur peut jouer
                 bool autreCoupPossible = false;
 
-                for (int l = 0; l < tableau.nbCases; l++)
+                for (int l = 0; l < Plateau.nbCases; l++)
                 {
-                    for (int c = 0; c < tableau.nbCases; c++)
+                    for (int c = 0; c < Plateau.nbCases; c++)
                     {
-                        if (coupposs.Couppossible(new Coords(c, l), joueur.JoueurActif, joueur.JoueurPassif))
+                        if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
                         {
                             autreCoupPossible = true;
                             break;
@@ -362,22 +362,22 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
         }
 
-        //Gestion des coups à afficher dans les différents tableaux
+        //Gestion des coups à afficher dans les différents Plateaux
         private void jouerCoup(Coords posCoup)
         {
 
-            tableau.SetCase(posCoup, joueur.JoueurActif);
+            Plateau.SetCase(posCoup, Joueur.JoueurActif);
 
-            //Mise à jour du tableau en fonction de chaque casesw
-            for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+            //Mise à jour du Plateau en fonction de chaque casesw
+            for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
             {
-                for (int col = 0; col < tableau.nbCases; col++)
+                for (int col = 0; col < Plateau.nbCases; col++)
                 {
-                    if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
+                    if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.NOIR)
                     {
                         boutons[ligne, col].BackgroundImage = imgJ1;
                     }
-                    else if (tableau.GetCase(new Coords(col, ligne)) == tableau.BLANC)
+                    else if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.BLANC)
                     {
                         boutons[ligne, col].BackgroundImage = imgJ2;
                     }
@@ -397,11 +397,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             //Compter les cases vides
             int nbVide = 0;
 
-            for (int l = 0; l < tableau.nbCases; l++)
+            for (int l = 0; l < Plateau.nbCases; l++)
             {
-                for (int c = 0; c < tableau.nbCases; c++)
+                for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (tableau.GetCase(new Coords(c, l)) == tableau.VIDE)
+                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.VIDE)
                     {
                         nbVide++;
                     }
@@ -425,14 +425,14 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                 position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.JoueurActif, joueur.JoueurPassif);
+                valable = Verification.VerificationRegle(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
 
                 if (valable == true)
                 {
                     jouerCoup(new Coords (position.X, position.Y));
 
-                    joueur.tour++;
-                    joueur.ChangerJoueur();
+                    Joueur.tour++;
+                    Joueur.ChangerJoueur();
 
                     MAJBarreInfo();
 

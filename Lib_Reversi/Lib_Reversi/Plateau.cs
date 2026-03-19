@@ -1,13 +1,13 @@
 ﻿namespace Lib_Reversi
 {
-    public class tableau
+    public class Plateau
     {
-        //Initialisation du plateau invisible qui gardera les valeurs de la partie pour chaque case (Null, True et False)
-
-
+        //Inistialisation des constantes
         public const int nbCases = 8;
         public const int pionBaseX = 3;
         public const int pionBaseY = 4;
+
+        //Initialisation du plateau invisible qui gardera les valeurs de la partie pour chaque case (Null, True et False)
         private static bool?[,] plateau = new bool?[nbCases, nbCases];
 
         public static readonly bool? NOIR = true;

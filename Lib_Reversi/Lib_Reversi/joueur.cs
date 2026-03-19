@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lib_Reversi
 {
-    public class joueur
+    public class Joueur
     {
         //Initialisation des variables joeurs
         public static int tour = 0;
@@ -15,9 +15,9 @@ namespace Lib_Reversi
 
         public static void ChangerJoueur()
         {
-            bool temp = JoueurActif;
+            bool swap = JoueurActif;
             JoueurActif = JoueurPassif;
-            JoueurPassif = temp;
+            JoueurPassif = swap;
         }
     }
 }

@@ -26,12 +26,12 @@ namespace Reversi_TMsp_Diego_Rodriguez
             {
                 Console.WriteLine("  A B C D E F G H");
 
-                tableau.InitialiserGrille();
+                Plateau.InitialiserGrille();
 
                 //Afficher la plateau
-                for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+                for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
                 {
-                    for (int col = 0; col < tableau.nbCases; col++)
+                    for (int col = 0; col < Plateau.nbCases; col++)
                     {
                         Console.SetCursorPosition(col * 2 + 1, ligne + 1);
                         Console.Write("   ");
@@ -70,7 +70,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                 //Instructions
                 Console.SetCursorPosition(0, 10);
-                Console.WriteLine("Au tour du joueur " + (joueur.JoueurActif == true ? "X" : "O"));
+                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
                 Console.SetCursorPosition(0, 11);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
                 Console.SetCursorPosition(34, 11);
@@ -85,14 +85,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     int comptPossible = 0;
 
                     //Affichage des coups possibles
-                    for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+                    for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
                     {
-                        for (int col = 0; col < tableau.nbCases; col++)
+                        for (int col = 0; col < Plateau.nbCases; col++)
                         {
-                            if (tableau.GetCase(new Coords(col, ligne)) == tableau.VIDE)
+                            if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
                             {
                                 //Si un coup est possible, on afifhe le coup dans la console
-                                if (coupposs.Couppossible(new Coords(col, ligne), joueur.JoueurActif, joueur.JoueurPassif))
+                                if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                     Console.Write("+");
@@ -111,7 +111,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
 
                     //Instruction
                     Console.SetCursorPosition(0, 10);
-                    Console.WriteLine("Au tour du joueur " + (joueur.JoueurActif == true ? "X" : "O"));
+                    Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 11);
@@ -165,34 +165,34 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         Console.WriteLine();
 
                         //Si la case est vide
-                        if (tableau.GetCase(new Coords(position.X, position.Y)) == tableau.VIDE)
+                        if (Plateau.GetCase(new Coords(position.X, position.Y)) == Plateau.VIDE)
                         {
-                            valable = verif.Verifcoup(new Coords(position.X, position.Y), joueur.JoueurActif, joueur.JoueurPassif);
+                            valable = Verification.VerificationRegle(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
                                 //Ajouter le coup dans le tableau
-                                tableau.SetCase(new Coords(position.X, position.Y), joueur.JoueurActif);
+                                Plateau.SetCase(new Coords(position.X, position.Y), Joueur.JoueurActif);
 
                                 //Afficher le joueur actuel
                                 Console.SetCursorPosition(position.X * 2 + 2, position.Y + 1);
-                                Console.Write(joueur.JoueurActif == true ? "X" : "O");
+                                Console.Write(Joueur.JoueurActif == true ? "X" : "O");
 
                                 //Réaffichage de tout le tableau dans la console en fonction des valeurs du plateau invisible
-                                for (int ligne = 0; ligne < tableau.nbCases; ligne++)
+                                for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
                                 {
-                                    for (int col = 0; col < tableau.nbCases; col++)
+                                    for (int col = 0; col < Plateau.nbCases; col++)
                                     {
                                         //Si la case est noire, on place un pion noir (X) dans la case visuelle
-                                        if (tableau.GetCase(new Coords(col, ligne)) == tableau.NOIR)
+                                        if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.NOIR)
                                         {
                                             Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                             Console.Write("X");
                                         }
 
                                         //Si la case est blanche, on place un pion blanc (O) dans la case visuelle
-                                        else if (tableau.GetCase(new Coords(col, ligne)) == tableau.BLANC)
+                                        else if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.BLANC)
                                         {
                                             Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                             Console.Write("O");
@@ -200,8 +200,8 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                     }
                                 }
 
-                                joueur.tour++;
-                                joueur.ChangerJoueur();
+                                Joueur.tour++;
+                                Joueur.ChangerJoueur();
 
                                 valable = false;
                                 aff = 0;
@@ -226,15 +226,15 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
 
                         //Comptage des pions pour afficher les valeurs dnas la console
-                        for (int i = 0; i < tableau.nbCases; i++)
+                        for (int i = 0; i < Plateau.nbCases; i++)
                         {
-                            for (int j = 0; j < tableau.nbCases; j++)
+                            for (int j = 0; j < Plateau.nbCases; j++)
                             {
-                                if (tableau.GetCase(new Coords(j, i)) == tableau.NOIR)
+                                if (Plateau.GetCase(new Coords(j, i)) == Plateau.NOIR)
                                 {
                                     comptX++;
                                 }
-                                else if (tableau.GetCase(new Coords(j, i)) == tableau.BLANC)
+                                else if (Plateau.GetCase(new Coords(j, i)) == Plateau.BLANC)
                                 {
                                     comptO++;
                                 }
@@ -266,7 +266,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
                         else if (comptPossible == 0)
                         {
-                            joueur.tour++;
+                            Joueur.tour++;
                             aff++;
                         }
                         else if (aff > 1)
