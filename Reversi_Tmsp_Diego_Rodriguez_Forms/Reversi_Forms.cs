@@ -1,6 +1,8 @@
 ﻿using Lib_Reversi;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Reversi_Tmsp_Diego_Rodriguez_Forms
@@ -30,8 +32,13 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private Label lblNoir;
         private PictureBox picBlanc;
         private Label lblBlanc;
+        private Label lblVide;
+        private Label lblPossible;
 
-        
+        //Récupération du --Debug
+        private bool Debug = Environment.GetCommandLineArgs().Contains("--debug");
+        //private bool Debug = true;
+
 
         //Initialisations (appel des méthodes)
         public Reversi_Forms()
@@ -136,6 +143,26 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             lblBlanc.TextAlign = ContentAlignment.MiddleLeft;
             barreInfo.Controls.Add(lblBlanc);
 
+            lblVide = new Label();
+            lblVide.AutoSize = false;
+            lblVide.Size = new Size(80, 36);
+            lblVide.Location = new Point(360, 7);
+            lblVide.ForeColor = Color.White;
+            lblVide.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            lblVide.TextAlign = ContentAlignment.MiddleLeft;
+            lblVide.Visible = Debug;
+            barreInfo.Controls.Add(lblVide);
+
+            lblPossible = new Label();
+            lblPossible.AutoSize = false;
+            lblPossible.Size = new Size(80, 36);
+            lblPossible.Location = new Point(440, 7);
+            lblPossible.ForeColor = Color.White;
+            lblPossible.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            lblPossible.TextAlign = ContentAlignment.MiddleLeft;
+            lblPossible.Visible = Debug;
+            barreInfo.Controls.Add(lblPossible);
+
             this.Controls.Add(barreInfo);
             this.Icon = Resource1.Icone_reversi;
         }
@@ -175,6 +202,26 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             //Afficher les valeurs dans la barre d'info
             lblNoir.Text = nbNoir.ToString();
             lblBlanc.Text = nbBlanc.ToString();
+
+            if (Debug)
+            {
+                int nbVide = 0;
+                int nbPossible = 0;
+
+                for (int l = 0; l < Plateau.nbCases; l++)
+                    for (int c = 0; c < Plateau.nbCases; c++)
+                    {
+                        if (Plateau.GetCase(new Coords(c, l)) == Plateau.VIDE)
+                        {
+                            nbVide++;
+                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                nbPossible++;
+                        }
+                    }
+
+                lblVide.Text = "' ' = " + nbVide;
+                lblPossible.Text = "+ = " + nbPossible;
+            }
         }
 
         //Initialisation du plateau visuel 

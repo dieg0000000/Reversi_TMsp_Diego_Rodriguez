@@ -9,14 +9,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
     {
         static void Main(string[] args)
         {
-            bool EstAdmin = args.Contains("--admin");
             bool Debug = args.Contains("--debug");
-
-            if (EstAdmin)
-            {
-                Console.WriteLine("Mode Admin");
-                Console.ReadLine();
-            }
 
             Console.Clear();
             bool jeu = true;
@@ -39,6 +32,8 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     Console.WriteLine();
                 }
 
+                Console.WriteLine("  A B C D E F G H");
+
                 //Afficher le numro des lignes 
                 for (int l = 1; l < 9; l++)
                 {
@@ -46,34 +41,40 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     Console.Write(l);
                 }
 
-                ///Déclaration des variables
-                int aff = 0;
+                //Afficher le numro des lignes 
+                for (int l = 1; l < 9; l++)
+                {
+                    Console.SetCursorPosition(18, l);
+                    Console.Write(l);
+                }
+
+                //Déclaration des variables
                 bool valable = false;
                 bool partie = true;
                 bool menu = false;
 
                 //Affichage du compteur à 2 pour chaque valablen, avant qu'il commence à compter 
-                Console.SetCursorPosition(20, 3);
+                Console.SetCursorPosition(21, 3);
                 Console.Write("X = 2");
-                Console.SetCursorPosition(20, 4);
+                Console.SetCursorPosition(21, 4);
                 Console.Write("O = 2");
 
                 //Valables au milieu de base (affiché)
                 Console.SetCursorPosition(8, 4);
                 Console.Write("X");
                 Console.SetCursorPosition(10, 5);
-                Console.Write("O");
+                Console.Write("X");
                 Console.SetCursorPosition(10, 4);
                 Console.Write("O");
                 Console.SetCursorPosition(8, 5);
-                Console.Write("X");
+                Console.Write("O");
 
                 //Instructions
-                Console.SetCursorPosition(0, 10);
-                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
                 Console.SetCursorPosition(0, 11);
+                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
+                Console.SetCursorPosition(0, 12);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
-                Console.SetCursorPosition(34, 11);
+                Console.SetCursorPosition(34, 12);
 
                 //Boucle principale
                 while (partie == true)
@@ -110,20 +111,22 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     }
 
                     //Instruction
-                    Console.SetCursorPosition(0, 10);
+                    Console.SetCursorPosition(0, 11);
                     Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
 
                     //Clear la donnée entrée
-                    Console.SetCursorPosition(34, 11);
+                    Console.SetCursorPosition(34, 12);
                     Console.Write("               ");
-                    Console.SetCursorPosition(34, 11);
+                    Console.SetCursorPosition(34, 12);
 
                     //Valeur de base
                     string x = Console.ReadLine();
 
                     //Clear du message d'erreur
-                    Console.SetCursorPosition(0, 12);
+                    Console.SetCursorPosition(0, 13);
                     Console.WriteLine("                                                                               ");
+                    Console.SetCursorPosition(0, 14);
+                    Console.WriteLine("                               ");
 
                     //Regex généré par l'IA
                     string pattern = @"^[A-Ha-h][1-8]$";
@@ -204,8 +207,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 Joueur.ChangerJoueur();
 
                                 valable = false;
-                                aff = 0;
-
+                                
                                 //Clear du message d'erreur
                                 Console.SetCursorPosition(0, 13);
                                 Console.WriteLine("                     ");
@@ -214,14 +216,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             //Si non, coup invalide
                             else
                             {
-                                Console.SetCursorPosition(0, 13);
+                                Console.SetCursorPosition(0, 14);
                                 Console.Write("Coup invalide !!");
                             }
                         }
                         //Si la case est pas vide
                         else
                         {
-                            Console.SetCursorPosition(0, 13);
+                            Console.SetCursorPosition(0, 14);
                             Console.Write("Case occupée !!");
                         }
 
@@ -246,16 +248,16 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
 
                         //Affichage du nombre de valablens de chaque joueur (Cases vide pour debug)
-                        Console.SetCursorPosition(20, 3);
+                        Console.SetCursorPosition(21, 3);
                         Console.Write("X = " + comptX);
-                        Console.SetCursorPosition(20, 4);
+                        Console.SetCursorPosition(21, 4);
                         Console.Write("O = " + comptO);
                         
                         if (Debug)
                         {
-                            Console.SetCursorPosition(20, 5);
+                            Console.SetCursorPosition(21, 5);
                             Console.Write("' ' = " + comptVide);
-                            Console.SetCursorPosition(20, 6);
+                            Console.SetCursorPosition(21, 6);
                             Console.Write("+ = " + comptPossible);
                         }
 
@@ -266,17 +268,38 @@ namespace Reversi_TMsp_Diego_Rodriguez
                         }
                         else if (comptPossible == 0)
                         {
+                            Console.SetCursorPosition(0, 13);
+                            Console.WriteLine("Aucun coup possible, tour passé !");
                             Joueur.tour++;
-                            aff++;
-                        }
-                        else if (aff > 1)
-                        {
-                            menu = true;
+                            Joueur.ChangerJoueur();
+
+                            // Vérifier si l'autre joueur peut jouer
+                            bool autreCoupPossible = false;
+                            for (int l = 0; l < Plateau.nbCases; l++)
+                            {
+                                for (int c = 0; c < Plateau.nbCases; c++)
+                                {
+                                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                    {
+                                        autreCoupPossible = true;
+                                        break;
+                                    }
+                                }
+                                if (autreCoupPossible == true)
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (autreCoupPossible == false)
+                            {
+                                menu = true; 
+                            }
                         }
                     }
                     else
                     {
-                        Console.SetCursorPosition(0, 12);
+                        Console.SetCursorPosition(0, 13);
                         Console.WriteLine("Entrée invalide. Veuillez suivre l'exemple.");
                     }
 
