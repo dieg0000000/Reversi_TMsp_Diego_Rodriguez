@@ -37,9 +37,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
 
         //Récupération du --Debug
         private bool Debug = Environment.GetCommandLineArgs().Contains("--debug");
-        //private bool Debug = true;
-
-
+        
         //Initialisations (appel des méthodes)
         public Reversi_Forms()
         {
@@ -148,7 +146,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             lblVide.Size = new Size(80, 36);
             lblVide.Location = new Point(360, 7);
             lblVide.ForeColor = Color.White;
-            lblVide.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            lblVide.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lblVide.TextAlign = ContentAlignment.MiddleLeft;
             lblVide.Visible = Debug;
             barreInfo.Controls.Add(lblVide);
@@ -158,7 +156,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             lblPossible.Size = new Size(80, 36);
             lblPossible.Location = new Point(440, 7);
             lblPossible.ForeColor = Color.White;
-            lblPossible.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            lblPossible.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lblPossible.TextAlign = ContentAlignment.MiddleLeft;
             lblPossible.Visible = Debug;
             barreInfo.Controls.Add(lblPossible);
@@ -220,7 +218,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     }
 
                 lblVide.Text = "' ' = " + nbVide;
-                lblPossible.Text = "+ = " + nbPossible;
+                lblPossible.Text = "· = " + nbPossible;
             }
         }
 
