@@ -125,9 +125,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                     //Clear du message d'erreur
                     Console.SetCursorPosition(0, 13);
                     Console.WriteLine("                                                                               ");
-                    Console.SetCursorPosition(0, 14);
-                    Console.WriteLine("                               ");
-
+                    
                     //Regex généré par l'IA
                     string pattern = @"^[A-Ha-h][1-8]$";
 
@@ -216,14 +214,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             //Si non, coup invalide
                             else
                             {
-                                Console.SetCursorPosition(0, 14);
+                                Console.SetCursorPosition(0, 13);
                                 Console.Write("Coup invalide !!");
                             }
                         }
                         //Si la case est pas vide
                         else
                         {
-                            Console.SetCursorPosition(0, 14);
+                            Console.SetCursorPosition(0, 13);
                             Console.Write("Case occupée !!");
                         }
 
