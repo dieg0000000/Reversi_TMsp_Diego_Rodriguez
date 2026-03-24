@@ -58,6 +58,11 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 Console.Write("X = 2");
                 Console.SetCursorPosition(21, 4);
                 Console.Write("O = 2");
+                Console.SetCursorPosition(21, 5);
+                Console.Write("' ' = 60");
+                Console.SetCursorPosition(21, 6);
+                Console.Write("· = 4");
+
 
                 //Valables au milieu de base (affiché)
                 Console.SetCursorPosition(8, 4);
@@ -96,8 +101,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
-                                    Console.Write("·");
-                                    comptPossible++;
+                                    Console.Write("·");                                   
                                 }
 
                                 //Si la case est vide, on affiche rien 
@@ -205,7 +209,20 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 Joueur.ChangerJoueur();
 
                                 valable = false;
-                                
+
+                                comptPossible = 0;
+                                for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
+                                {
+                                    for (int col = 0; col < Plateau.nbCases; col++)
+                                    {
+                                        if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE &&
+                                            CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                        {
+                                            comptPossible++;
+                                        }
+                                    }
+                                }
+
                                 //Clear du message d'erreur
                                 Console.SetCursorPosition(0, 13);
                                 Console.WriteLine("                     ");
@@ -256,7 +273,7 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             Console.SetCursorPosition(21, 5);
                             Console.Write("' ' = " + comptVide);
                             Console.SetCursorPosition(21, 6);
-                            Console.Write("+ = " + comptPossible);
+                            Console.Write("· = " + comptPossible);
                         }
 
                         //Fin de partie
