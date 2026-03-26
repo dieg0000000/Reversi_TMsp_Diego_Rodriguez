@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace Reversi_Tmsp_Diego_Rodriguez_Forms
@@ -55,6 +56,8 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
             InitialiserBarreInfo();
             affichagePossible();
             MAJBarreInfo();
+            this.Show();
+            debutPartie();
         }
 
         //Affichage des coups possible en gris
@@ -281,6 +284,11 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
                     boutons[ligne, colonne] = bout;
                 }
             }
+        }
+
+        private void debutPartie()
+        {
+            MessageBox.Show("Placez vos pions pour encadrer ceux de l'adversaire et les retourner. \nLes cases marquées d'un cercle gris indiquent les coups jouables.", "Bienvenue au Reversi !");
         }
 
         //Gestion de la fin de partie

@@ -12,6 +12,16 @@ namespace Reversi_TMsp_Diego_Rodriguez
             bool Debug = args.Contains("--debug");
 
             Console.Clear();
+
+            Console.WriteLine("Bienvenue au Reversi !");
+            Console.WriteLine("Placez vos pions pour encadrer ceux de l'adversaire et les retourner.");
+            Console.WriteLine("Les cases marquées d'un · indiquent les coups jouables.");
+            Console.WriteLine("   ");
+            Console.WriteLine("[ENTER] pour commencer la partie");
+            Console.ReadLine();
+
+            Console.Clear();
+
             bool jeu = true;
 
             //Lancement de la partie
