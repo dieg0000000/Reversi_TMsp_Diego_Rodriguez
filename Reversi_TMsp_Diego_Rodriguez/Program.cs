@@ -58,10 +58,14 @@ namespace Reversi_TMsp_Diego_Rodriguez
                 Console.Write("X = 2");
                 Console.SetCursorPosition(21, 4);
                 Console.Write("O = 2");
-                Console.SetCursorPosition(21, 5);
-                Console.Write("' ' = 60");
-                Console.SetCursorPosition(21, 6);
-                Console.Write("· = 4");
+
+                if (Debug == true)
+                {
+                    Console.SetCursorPosition(21, 5);
+                    Console.Write("' ' = 60");
+                    Console.SetCursorPosition(21, 6);
+                    Console.Write("· = 4");
+                }
 
 
                 //Valables au milieu de base (affiché)
@@ -226,6 +230,55 @@ namespace Reversi_TMsp_Diego_Rodriguez
                                 //Clear du message d'erreur
                                 Console.SetCursorPosition(0, 13);
                                 Console.WriteLine("                     ");
+                                // Comptage des pions
+                                comptX = 0; comptO = 0; comptVide = 0;
+                                for (int i = 0; i < Plateau.nbCases; i++)
+                                    for (int j = 0; j < Plateau.nbCases; j++)
+                                    {
+                                        if (Plateau.GetCase(new Coords(j, i)) == Plateau.NOIR) comptX++;
+                                        else if (Plateau.GetCase(new Coords(j, i)) == Plateau.BLANC) comptO++;
+                                        else comptVide++;
+                                    }
+
+                                Console.SetCursorPosition(21, 3);
+                                Console.Write("X = " + comptX);
+                                Console.SetCursorPosition(21, 4);
+                                Console.Write("O = " + comptO);
+                                if (Debug)
+                                {
+                                    Console.SetCursorPosition(21, 5);
+                                    Console.Write("' ' = " + comptVide);
+                                    Console.SetCursorPosition(21, 6);
+                                    Console.Write("· = " + comptPossible);
+                                }
+
+                                if (comptVide == 0)
+                                {
+                                    menu = true;
+                                }
+                                else if (comptPossible == 0)
+                                {
+                                    Console.SetCursorPosition(0, 13);
+                                    Console.WriteLine("Aucun coup possible, tour passé !");
+                                    Joueur.tour++;
+                                    Joueur.ChangerJoueur();
+
+                                    bool autreCoupPossible = false;
+                                    for (int l = 0; l < Plateau.nbCases; l++)
+                                    {
+                                        for (int c = 0; c < Plateau.nbCases; c++)
+                                        {
+                                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                            {
+                                                autreCoupPossible = true;
+                                                break;
+                                            }
+                                        }
+                                        if (autreCoupPossible) break;
+                                    }
+                                    if (!autreCoupPossible) menu = true;
+                                }
+
                             }
 
                             //Si non, coup invalide
@@ -242,75 +295,6 @@ namespace Reversi_TMsp_Diego_Rodriguez
                             Console.Write("Case occupée !!");
                         }
 
-                        //Comptage des pions pour afficher les valeurs dnas la console
-                        for (int i = 0; i < Plateau.nbCases; i++)
-                        {
-                            for (int j = 0; j < Plateau.nbCases; j++)
-                            {
-                                if (Plateau.GetCase(new Coords(j, i)) == Plateau.NOIR)
-                                {
-                                    comptX++;
-                                }
-                                else if (Plateau.GetCase(new Coords(j, i)) == Plateau.BLANC)
-                                {
-                                    comptO++;
-                                }
-                                else
-                                {
-                                    comptVide++;
-                                }
-                            }
-                        }
-
-                        //Affichage du nombre de valablens de chaque joueur (Cases vide pour debug)
-                        Console.SetCursorPosition(21, 3);
-                        Console.Write("X = " + comptX);
-                        Console.SetCursorPosition(21, 4);
-                        Console.Write("O = " + comptO);
-                        
-                        if (Debug)
-                        {
-                            Console.SetCursorPosition(21, 5);
-                            Console.Write("' ' = " + comptVide);
-                            Console.SetCursorPosition(21, 6);
-                            Console.Write("· = " + comptPossible);
-                        }
-
-                        //Fin de partie
-                        if (comptVide == 0)
-                        {
-                            menu = true;
-                        }
-                        else if (comptPossible == 0)
-                        {
-                            Console.SetCursorPosition(0, 13);
-                            Console.WriteLine("Aucun coup possible, tour passé !");
-                            Joueur.tour++;
-                            Joueur.ChangerJoueur();
-
-                            // Vérifier si l'autre joueur peut jouer
-                            bool autreCoupPossible = false;
-                            for (int l = 0; l < Plateau.nbCases; l++)
-                            {
-                                for (int c = 0; c < Plateau.nbCases; c++)
-                                {
-                                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
-                                    {
-                                        autreCoupPossible = true;
-                                        break;
-                                    }
-                                }
-                                if (autreCoupPossible == true)
-                                {
-                                    break;
-                                }
-                            }
-
-                            if (autreCoupPossible == false)
-                            {
-                                menu = true; 
-                            }
-                        }
                     }
                     else
                     {
