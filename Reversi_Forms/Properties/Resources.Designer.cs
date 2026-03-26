@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Reversi_Tmsp_Diego_Rodriguez_Forms.Properties {
+namespace Reversi_Forms.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Reversi_Tmsp_Diego_Rodriguez_Forms.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Reversi_Forms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

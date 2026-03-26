@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Reversi_TMsp_Diego_Rodriguez
+namespace Reversi_Console
 {
     internal class Program
     {

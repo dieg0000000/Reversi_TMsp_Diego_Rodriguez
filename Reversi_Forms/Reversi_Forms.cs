@@ -6,9 +6,9 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
-namespace Reversi_Tmsp_Diego_Rodriguez_Forms
+namespace Reversi_Forms
 {
-    public partial class Reversi_Forms : Form
+    public partial class ReversiForm : Form
     {
         //Images du jeu
         private Image imgJNoir;
@@ -40,7 +40,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         private bool Debug = Environment.GetCommandLineArgs().Contains("--debug");
         
         //Initialisations (appel des méthodes)
-        public Reversi_Forms()
+        public ReversiForm()
         {
             InitializeComponent();
 
@@ -516,7 +516,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         }
 
         //Empecher la fermeture de la fenêtre par accident
-        private void Reversi_Forms_FormClosing(object sender, FormClosingEventArgs e)
+        private void ReversiForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {

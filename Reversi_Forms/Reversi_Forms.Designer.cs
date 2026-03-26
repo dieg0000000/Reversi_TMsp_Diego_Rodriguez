@@ -1,6 +1,6 @@
-﻿namespace Reversi_Tmsp_Diego_Rodriguez_Forms
+﻿namespace Reversi_Forms
 {
-    partial class Reversi_Forms
+    partial class ReversiForm
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(602, 603);
             this.Name = "Reversi_Forms";
             this.Text = "Reversi Game";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Reversi_Forms_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReversiForm_FormClosing);
             this.ResumeLayout(false);
 
         }

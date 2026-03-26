@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Reversi_Tmsp_Diego_Rodriguez_Forms
+namespace Reversi_Forms
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace Reversi_Tmsp_Diego_Rodriguez_Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Reversi_Forms());
+            Application.Run(new ReversiForm());
         }
     }
 }

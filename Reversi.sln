@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32630.192
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11505.172 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reversi_TMsp_Diego_Rodriguez", "Reversi_TMsp_Diego_Rodriguez\Reversi_TMsp_Diego_Rodriguez.csproj", "{C6BF11D3-855F-428F-A85C-C535A92161AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reversi_Console", "Reversi_Console\Reversi_Console.csproj", "{C6BF11D3-855F-428F-A85C-C535A92161AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reversi_Tmsp_Diego_Rodriguez_Forms", "Reversi_Tmsp_Diego_Rodriguez_Forms\Reversi_Tmsp_Diego_Rodriguez_Forms.csproj", "{32135B92-B94C-4797-A8FF-77CDEA2B2AF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reversi_Forms", "Reversi_Forms\Reversi_Forms.csproj", "{32135B92-B94C-4797-A8FF-77CDEA2B2AF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

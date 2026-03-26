@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Reversi_Tmsp_Diego_Rodriguez_Forms")]
+[assembly: AssemblyTitle("Reversi_Forms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DGEP")]
-[assembly: AssemblyProduct("Reversi_Tmsp_Diego_Rodriguez_Forms")]
+[assembly: AssemblyProduct("Reversi_Forms")]
 [assembly: AssemblyCopyright("Copyright © DGEP 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

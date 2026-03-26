@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C6BF11D3-855F-428F-A85C-C535A92161AD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Reversi_TMsp_Diego_Rodriguez</RootNamespace>
-    <AssemblyName>Reversi_TMsp_Diego_Rodriguez</AssemblyName>
+    <RootNamespace>Reversi_Console</RootNamespace>
+    <AssemblyName>Reversi_Console</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
