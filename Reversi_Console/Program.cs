@@ -1,7 +1,7 @@
 ﻿using Lib_Reversi;
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
+
 
 namespace Reversi_Console
 {
@@ -134,7 +134,7 @@ namespace Reversi_Console
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 12);
-                    Console.Write("               ");
+                    Console.Write("                                                                                   ");
                     Console.SetCursorPosition(34, 12);
 
                     //Valeur de base
@@ -144,11 +144,8 @@ namespace Reversi_Console
                     Console.SetCursorPosition(0, 13);
                     Console.WriteLine("                                                                               ");
                     
-                    //Regex généré par l'IA
-                    string pattern = @"^[A-Ha-h][1-8]$";
-
                     //Vérification de l'entrée de l'utilisateur
-                    bool estValide = Regex.IsMatch(x, pattern);
+                    bool estValide = VerifCoords.VerifEntree(x);
 
                     //Si l'entrée suit le bon format on décapsule les valeurs
                     if (estValide == true)

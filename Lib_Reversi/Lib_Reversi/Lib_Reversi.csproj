@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coordonnee.cs" />
+    <Compile Include="Utilitaire.cs" />
     <Compile Include="CoupPossible.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
