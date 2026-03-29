@@ -42,6 +42,70 @@
             plateau[pionBaseY, pionBaseX] = BLANC;
             plateau[pionBaseY, pionBaseY] = NOIR;
         }
+
+        public static int CompterNoir()
+        {
+            int comptNoir = 0;
+            for (int l = 0; l < nbCases; l++)
+            {
+                for (int c = 0; c < nbCases; c++)
+                {
+                    if (plateau[l, c] == NOIR)
+                    {
+                        comptNoir++;
+                    }
+                }
+            }
+            return comptNoir;
+        }
+
+        public static int CompterBlanc()
+        {
+            int comptBlanc = 0;
+            for (int l = 0; l < nbCases; l++)
+            {
+                for (int c = 0; c < nbCases; c++)
+                {
+                    if (plateau[l, c] == BLANC)
+                    {
+                        comptBlanc++;
+                    }
+                }
+            }
+            return comptBlanc;
+        }
+
+        public static int CompterVide()
+        {
+            int comptVide = 0;
+            for (int l = 0; l < nbCases; l++)
+            {
+                for (int c = 0; c < nbCases; c++)
+                {
+                    if (plateau[l, c] == VIDE)
+                    {
+                        comptVide++;
+                    }
+                }
+            }
+            return comptVide;
+        }
+
+        public static int CompterCoupsPossibles(bool? joueurActif, bool? joueurPassif)
+        {
+            int comptCP = 0;
+            for (int l = 0; l < Plateau.nbCases; l++)
+            {
+                for (int c = 0; c < Plateau.nbCases; c++)
+                {
+                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), joueurActif, joueurPassif))
+                    {
+                        comptCP++;
+                    }
+                }
+            }
+            return comptCP;
+        }
     }
 }
 

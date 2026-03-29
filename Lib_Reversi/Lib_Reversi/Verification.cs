@@ -4,7 +4,7 @@ namespace Lib_Reversi
 {
     public class Verification
     {
-        public static bool VerificationRegle(Coords pos, bool? JoueurActif, bool? JoueurPassif)
+        public static bool VerificationRegleEtRetourne(Coords pos, bool? JoueurActif, bool? JoueurPassif)
         {
             bool valable = false;
 

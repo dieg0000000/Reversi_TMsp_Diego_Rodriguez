@@ -182,46 +182,29 @@ namespace Reversi_Forms
                 lblJoueurActuel.Text = "Tour";
             }
 
-            //Compter les pions pour la barre
-            int nbNoir = 0;
-            int nbBlanc = 0;
+            int comptNoir = 0;
+            int comptBlanc = 0;
 
-            //Boucle qui compte le nombre de pions Noirs et Blancs dans le Plateau
-            for (int l = 0; l < Plateau.nbCases; l++)
-                for (int c = 0; c < Plateau.nbCases; c++)
-                {
-                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.NOIR)
-                    { 
-                        nbNoir++; 
-                    }
-                    else if (Plateau.GetCase(new Coords(c, l)) == Plateau.BLANC)
-                    {
-                        nbBlanc++;
-                    }
-                }
+            //Compte le nombre de pions Noirs et Blancs dans le Plateau
+            comptNoir = Plateau.CompterNoir();
+            comptBlanc = Plateau.CompterBlanc();
 
             //Afficher les valeurs dans la barre d'info
-            lblNoir.Text = nbNoir.ToString();
-            lblBlanc.Text = nbBlanc.ToString();
+            lblNoir.Text = comptNoir.ToString();
+            lblBlanc.Text = comptBlanc.ToString();
 
             if (Debug)
             {
-                int nbVide = 0;
-                int nbPossible = 0;
+                int comptVide = 0;
+                int comptPossible = 0;
 
-                for (int l = 0; l < Plateau.nbCases; l++)
-                    for (int c = 0; c < Plateau.nbCases; c++)
-                    {
-                        if (Plateau.GetCase(new Coords(c, l)) == Plateau.VIDE)
-                        {
-                            nbVide++;
-                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
-                                nbPossible++;
-                        }
-                    }
+                //Comptage des cases vides et les coups possibles 
+                comptVide = Plateau.CompterVide();
+                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
 
-                lblVide.Text = "' ' = " + nbVide;
-                lblPossible.Text = "· = " + nbPossible;
+                //Afficher les valeurs dans la barre d'info
+                lblVide.Text = "' ' = " + comptVide;
+                lblPossible.Text = "· = " + comptPossible;
             }
         }
 
@@ -296,44 +279,29 @@ namespace Reversi_Forms
         {
             Partie_finie = true;
 
-            int nbNoir = 0;
-            int nbBlanc = 0;
+            int comptNoir = 0;
+            int comptBlanc = 0;
 
-            //Comptage des pions pour les afficher dans le messageBox
-            for (int l = 0; l < Plateau.nbCases; l++)
-            {
-                for (int c = 0; c < Plateau.nbCases; c++)
-                {
-                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.NOIR)
-                    {
-                        nbNoir++;
-                    }
-                    else
-                    {
-                        if (Plateau.GetCase(new Coords(c, l)) == Plateau.BLANC)
-                        {
-                            nbBlanc++;
-                        }
-                    }
-                }
-            }
+            //Compte le nombre de pions Noirs et Blancs dans le Plateau
+            comptNoir = Plateau.CompterNoir();
+            comptBlanc = Plateau.CompterBlanc();
 
             //Messages en fonction du gagnant
             string message;
 
-            if (nbNoir > nbBlanc)
+            if (comptNoir > comptBlanc)
             {
-                message = "Le joueur Noir a gagné ! (" + nbNoir + " contre " + nbBlanc + ")";
+                message = "Le joueur Noir a gagné ! (" + comptNoir + " contre " + comptBlanc + ")";
             }
             else
             {
-                if (nbBlanc > nbNoir)
+                if (comptBlanc > comptNoir)
                 {
-                    message = "Le joueur Blanc gagne ! (" + nbBlanc + " contre " + nbNoir + ")";
+                    message = "Le joueur Blanc gagne ! (" + comptBlanc + " contre " + comptNoir + ")";
                 }
                 else
                 {
-                    message = "Égalité ! (" + nbNoir + " - " + nbBlanc + ")";
+                    message = "Égalité ! (" + comptNoir + " - " + comptBlanc + ")";
                 }
             }
 
@@ -446,25 +414,6 @@ namespace Reversi_Forms
             }
         }
 
-        //Comptage des cases vides pour la fin de partie
-        private int compterVide()
-        {
-            //Compter les cases vides
-            int nbVide = 0;
-
-            for (int l = 0; l < Plateau.nbCases; l++)
-            {
-                for (int c = 0; c < Plateau.nbCases; c++)
-                {
-                    if (Plateau.GetCase(new Coords(c, l)) == Plateau.VIDE)
-                    {
-                        nbVide++;
-                    }
-                }
-            }
-            return nbVide;
-        }
-
         //Click des bouttons
         private void Bouton_Click(object sender, EventArgs e)
         {
@@ -480,7 +429,7 @@ namespace Reversi_Forms
                 position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = Verification.VerificationRegle(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
+                valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
 
                 if (valable == true)
                 {
@@ -493,7 +442,7 @@ namespace Reversi_Forms
 
                     affichagePossible();
 
-                    int nbVide = compterVide();
+                    int nbVide = Plateau.CompterVide();
 
                     bool finPartie = false;
 

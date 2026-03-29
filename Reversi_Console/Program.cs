@@ -183,7 +183,7 @@ namespace Reversi_Console
                         //Si la case est vide
                         if (Plateau.GetCase(new Coords(position.X, position.Y)) == Plateau.VIDE)
                         {
-                            valable = Verification.VerificationRegle(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
+                            valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
 
                             //Si oui place le pion
                             if (valable == true)
@@ -220,32 +220,16 @@ namespace Reversi_Console
                                 Joueur.ChangerJoueur();
 
                                 valable = false;
-
-                                comptPossible = 0;
-                                for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
-                                {
-                                    for (int col = 0; col < Plateau.nbCases; col++)
-                                    {
-                                        if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE &&
-                                            CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
-                                        {
-                                            comptPossible++;
-                                        }
-                                    }
-                                }
-
+                                    
                                 //Clear du message d'erreur
                                 Console.SetCursorPosition(0, 13);
                                 Console.WriteLine("                     ");
+
                                 // Comptage des pions
-                                comptX = 0; comptO = 0; comptVide = 0;
-                                for (int i = 0; i < Plateau.nbCases; i++)
-                                    for (int j = 0; j < Plateau.nbCases; j++)
-                                    {
-                                        if (Plateau.GetCase(new Coords(j, i)) == Plateau.NOIR) comptX++;
-                                        else if (Plateau.GetCase(new Coords(j, i)) == Plateau.BLANC) comptO++;
-                                        else comptVide++;
-                                    }
+                                comptX = Plateau.CompterNoir();
+                                comptO = Plateau.CompterBlanc();
+                                comptVide = Plateau.CompterVide();
+                                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
 
                                 Console.SetCursorPosition(21, 3);
                                 Console.Write("X = " + comptX);
