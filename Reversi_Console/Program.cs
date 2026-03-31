@@ -1,7 +1,6 @@
 ﻿using Lib_Reversi;
 using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 
 namespace Reversi_Console
@@ -91,7 +90,7 @@ namespace Reversi_Console
 
                 //Instructions
                 Console.SetCursorPosition(0, 11);
-                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
+                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuel == true ? "X" : "O"));
                 Console.SetCursorPosition(0, 12);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
                 Console.SetCursorPosition(34, 12);
@@ -112,7 +111,7 @@ namespace Reversi_Console
                             if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
                             {
                                 //Si un coup est possible, on afifhe le coup dans la console
-                                if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActuel))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                     Console.Write("·");                                   
@@ -130,7 +129,7 @@ namespace Reversi_Console
 
                     //Instruction
                     Console.SetCursorPosition(0, 11);
-                    Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActif == true ? "X" : "O"));
+                    Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuel == true ? "X" : "O"));
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 12);
@@ -183,17 +182,17 @@ namespace Reversi_Console
                         //Si la case est vide
                         if (Plateau.GetCase(new Coords(position.X, position.Y)) == Plateau.VIDE)
                         {
-                            valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
+                            valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActuel);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
                                 //Ajouter le coup dans le tableau
-                                Plateau.SetCase(new Coords(position.X, position.Y), Joueur.JoueurActif);
+                                Plateau.SetCase(new Coords(position.X, position.Y), Joueur.JoueurActuel);
 
                                 //Afficher le joueur actuel
                                 Console.SetCursorPosition(position.X * 2 + 2, position.Y + 1);
-                                Console.Write(Joueur.JoueurActif == true ? "X" : "O");
+                                Console.Write(Joueur.JoueurActuel == true ? "X" : "O");
 
                                 //Réaffichage de tout le tableau dans la console en fonction des valeurs du plateau invisible
                                 for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
@@ -227,7 +226,7 @@ namespace Reversi_Console
 
                                 // Comptage des pions
                                 (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
-                                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
+                                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActuel);
 
                                 Console.SetCursorPosition(21, 3);
                                 Console.Write("X = " + comptNoir);
@@ -257,7 +256,7 @@ namespace Reversi_Console
                                     {
                                         for (int c = 0; c < Plateau.nbCases; c++)
                                         {
-                                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActuel))
                                             {
                                                 autreCoupPossible = true;
                                                 break;

@@ -70,14 +70,14 @@
             return (comptNoir, comptBlanc, comptVide);
         }
 
-        public static int CompterCoupsPossibles(bool? joueurActif, bool? joueurPassif)
+        public static int CompterCoupsPossibles(bool JoueurActuel)
         {
             int comptCP = 0;
             for (int l = 0; l < Plateau.nbCases; l++)
             {
                 for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), joueurActif, joueurPassif))
+                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), JoueurActuel))
                     {
                         comptCP++;
                     }

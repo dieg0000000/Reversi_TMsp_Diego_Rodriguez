@@ -67,7 +67,7 @@ namespace Reversi_Forms
                 {
                     if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
                     {
-                        if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActif, Joueur.JoueurPassif))
+                        if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActuel))
                         {
                             boutons[ligne, col].BackgroundImage = imgCoupPoss;
                         }
@@ -176,9 +176,9 @@ namespace Reversi_Forms
 
             //Comptage des cases  
             (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
-            comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
+            comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActuel);
 
-            if (Joueur.JoueurActif == true)
+            if (Joueur.JoueurActuel == true)
             {
                 JoueurActuel.Image = imgJNoir;
                 lblJoueurActuel.Text = "Tour";
@@ -324,7 +324,7 @@ namespace Reversi_Forms
             {
                 for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActuel))
                     {
                         coupPossible = true;
                         break;
@@ -354,7 +354,7 @@ namespace Reversi_Forms
                 {
                     for (int c = 0; c < Plateau.nbCases; c++)
                     {
-                        if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActif, Joueur.JoueurPassif))
+                        if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActuel))
                         {
                             autreCoupPossible = true;
                             break;
@@ -382,7 +382,7 @@ namespace Reversi_Forms
         private void jouerCoup(Coords posCoup)
         {
 
-            Plateau.SetCase(posCoup, Joueur.JoueurActif);
+            Plateau.SetCase(posCoup, Joueur.JoueurActuel);
 
             //Mise à jour du Plateau en fonction de chaque casesw
             for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
@@ -422,7 +422,7 @@ namespace Reversi_Forms
                 position.X = p.Y;  //colonne
 
                 //Vérifie si le coup est valable même si les coups valables sont automatiquement proposés
-                valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActif, Joueur.JoueurPassif);
+                valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActuel);
 
                 if (valable == true)
                 {

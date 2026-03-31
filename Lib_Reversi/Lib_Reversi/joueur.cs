@@ -10,14 +10,12 @@ namespace Lib_Reversi
     {
         //Initialisation des variables joeurs
         public static int tour = 0;
-        public static bool JoueurActif = true; //noir et X
-        public static bool JoueurPassif = false; //blanc et O
+        public static bool JoueurActuel = true; //true = noir et X / false = blanc et O
+        
 
         public static void ChangerJoueur()
         {
-            bool swap = JoueurActif;
-            JoueurActif = JoueurPassif;
-            JoueurPassif = swap;
+            JoueurActuel = !JoueurActuel;
         }
     }
 }
