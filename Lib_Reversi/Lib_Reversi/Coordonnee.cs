@@ -1,4 +1,15 @@
-﻿namespace Lib_Reversi
+﻿// ===============================================================================================
+// AUTHOR     :         Diego Rodriguez
+// CREATE DATE     :    27 janvier 2026
+// PURPOSE     :        Moteur de jeu : Définit la structure de coordonnées (X, Y) du plateau et
+//                      valide le format des entrées utilisateur.
+// SPECIAL NOTES    :   Oubliez pas de générer la solution (Ctrl+Maj+B)après chaque modification
+//                      pour retouver les modifications dans votre code
+// ===============================================================================================
+// CHANGE HISTORY:     
+// ===============================================================================================
+
+namespace Lib_Reversi
 {
 
     public struct Coords

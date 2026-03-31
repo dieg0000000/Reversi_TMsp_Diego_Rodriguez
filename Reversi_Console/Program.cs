@@ -1,4 +1,15 @@
-﻿using Lib_Reversi;
+﻿// =============================================================================================== 
+// AUTHOR     :         Diego Rodriguez
+// CREATE DATE     :    9 décembre 2025
+// PURPOSE     :        Point d'entrée de l'application Console Reversi. Gère les interactions
+//                      utilisateur et la boucle de jeu.
+// SPECIAL NOTES   :    Oubliez pas de rajouter Lib_Reversi.dll dans les références et le
+//                      using Lib_Reversi;.
+// =============================================================================================== 
+// CHANGE HISTORY   :     
+// =============================================================================================== 
+
+using Lib_Reversi;
 using System;
 using System.Linq;
 
@@ -31,13 +42,13 @@ namespace Reversi_Console
 
                 Plateau.InitialiserGrille();
 
-                //Afficher la plateau
+                //Afficher les espaces vides du plateau
                 for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
                 {
                     for (int col = 0; col < Plateau.nbCases; col++)
                     {
                         Console.SetCursorPosition(col * 2 + 1, ligne + 1);
-                        Console.Write("   ");
+                        Console.Write("   ");   
                     }
                     Console.WriteLine();
                 }
@@ -69,6 +80,7 @@ namespace Reversi_Console
                 Console.SetCursorPosition(21, 4);
                 Console.Write("O = 2");
 
+                //Si l'utilisateur est en mode debug, sa affiche ça 
                 if (Debug == true)
                 {
                     Console.SetCursorPosition(21, 5);
@@ -76,7 +88,6 @@ namespace Reversi_Console
                     Console.SetCursorPosition(21, 6);
                     Console.Write("· = 4");
                 }
-
 
                 //Valables au milieu de base (affiché)
                 Console.SetCursorPosition(8, 4);
@@ -90,7 +101,7 @@ namespace Reversi_Console
 
                 //Instructions
                 Console.SetCursorPosition(0, 11);
-                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuel == true ? "X" : "O"));
+                Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuelX == true ? "X" : "O"));
                 Console.SetCursorPosition(0, 12);
                 Console.WriteLine("Veuillez entrer un coup (ex. A1) :");
                 Console.SetCursorPosition(34, 12);
@@ -108,16 +119,17 @@ namespace Reversi_Console
                     {
                         for (int col = 0; col < Plateau.nbCases; col++)
                         {
+                            //Si la case est vide, sa regarde si c'est un coup possible
                             if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
                             {
-                                //Si un coup est possible, on afifhe le coup dans la console
-                                if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActuel))
+                                //Si le coup est possible, on afifhe le coup dans la console
+                                if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActuelX))
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
                                     Console.Write("·");                                   
                                 }
 
-                                //Si la case est vide, on affiche rien 
+                                //Si ça n'en est pas un, on laisse un espace (case vide)
                                 else
                                 {
                                     Console.SetCursorPosition(col * 2 + 2, ligne + 1);
@@ -129,7 +141,7 @@ namespace Reversi_Console
 
                     //Instruction
                     Console.SetCursorPosition(0, 11);
-                    Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuel == true ? "X" : "O"));
+                    Console.WriteLine("Au tour du joueur " + (Joueur.JoueurActuelX == true ? "X" : "O"));
 
                     //Clear la donnée entrée
                     Console.SetCursorPosition(34, 12);
@@ -182,17 +194,17 @@ namespace Reversi_Console
                         //Si la case est vide
                         if (Plateau.GetCase(new Coords(position.X, position.Y)) == Plateau.VIDE)
                         {
-                            valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActuel);
+                            valable = Verification.VerificationRegleEtRetourne(new Coords(position.X, position.Y), Joueur.JoueurActuelX);
 
                             //Si oui place le pion
                             if (valable == true)
                             {
                                 //Ajouter le coup dans le tableau
-                                Plateau.SetCase(new Coords(position.X, position.Y), Joueur.JoueurActuel);
+                                Plateau.SetCase(new Coords(position.X, position.Y), Joueur.JoueurActuelX);
 
                                 //Afficher le joueur actuel
                                 Console.SetCursorPosition(position.X * 2 + 2, position.Y + 1);
-                                Console.Write(Joueur.JoueurActuel == true ? "X" : "O");
+                                Console.Write(Joueur.JoueurActuelX == true ? "X" : "O");
 
                                 //Réaffichage de tout le tableau dans la console en fonction des valeurs du plateau invisible
                                 for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
@@ -226,12 +238,14 @@ namespace Reversi_Console
 
                                 // Comptage des pions
                                 (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
-                                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActuel);
+                                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActuelX);
 
                                 Console.SetCursorPosition(21, 3);
                                 Console.Write("X = " + comptNoir);
                                 Console.SetCursorPosition(21, 4);
                                 Console.Write("O = " + comptBlanc);
+
+                                //Si l'utilisateur est en mode debug, sa affiche ça 
                                 if (Debug)
                                 {
                                     Console.SetCursorPosition(21, 5);
@@ -240,31 +254,40 @@ namespace Reversi_Console
                                     Console.Write("· = " + comptPossible);
                                 }
 
+                                //Si il reste 0 cases vides, la partie est finie 
                                 if (comptVide == 0)
                                 {
                                     menu = true;
                                 }
+                                //Si le joueur actuel n'à pas de coups possibles, sa passe au joueur suivant 
                                 else if (comptPossible == 0)
                                 {
                                     Console.SetCursorPosition(0, 13);
                                     Console.WriteLine("Aucun coup possible, tour passé !");
                                     Joueur.tour++;
                                     Joueur.ChangerJoueur();
-
                                     bool autreCoupPossible = false;
+
+                                    //Boucle qui regarde si l'aute joueur a des coups possibles
                                     for (int l = 0; l < Plateau.nbCases; l++)
                                     {
                                         for (int c = 0; c < Plateau.nbCases; c++)
                                         {
-                                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActuel))
+                                            //Si il en a, on sort de la boucle
+                                            if (CoupPossible.EstUnCoupPossible(new Coords(c, l), Joueur.JoueurActuelX))
                                             {
                                                 autreCoupPossible = true;
                                                 break;
                                             }
                                         }
+                                        //Si il en a, on sort de la boucle
                                         if (autreCoupPossible) break;
                                     }
-                                    if (!autreCoupPossible) menu = true;
+                                    //Si l'aute joueur n'a pas de ocups possibles non-plus, fin de partie
+                                    if (autreCoupPossible == false) 
+                                    { 
+                                        menu = true; 
+                                    }
                                 }
 
                             }
@@ -284,6 +307,7 @@ namespace Reversi_Console
                         }
 
                     }
+                    //Si le format d'entrée n'est pas respecté
                     else
                     {
                         Console.SetCursorPosition(0, 13);
@@ -330,6 +354,7 @@ namespace Reversi_Console
                         Console.WriteLine("[1] Nouvelle partie");
                         Console.WriteLine("[2] Quitter");
 
+                        //Gère l'entrée de fin de partie
                         while (partie == true)
                         {
                             Console.SetCursorPosition(23, 12);

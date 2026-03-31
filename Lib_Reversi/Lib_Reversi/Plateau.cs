@@ -1,4 +1,16 @@
-﻿namespace Lib_Reversi
+﻿// ===============================================================================================
+// AUTHOR     :         Diego Rodriguez
+// CREATE DATE     :    27 janvier 2026
+// PURPOSE     :        Moteur de jeu : Représente le plateau de jeu Reversi. Gère
+//                      l'initialisation, la lecture/écriture des cases et le comptage des pions.
+// SPECIAL NOTES    :   Oubliez pas de générer la solution (Ctrl+Maj+B)après chaque modification
+//                      pour retouver les modifications dans votre code
+// ===============================================================================================
+// CHANGE HISTORY   :   31-03-2026 - Regroupement méthode de comptage de pions / espaces vides /
+//                      coups possibles
+// ===============================================================================================
+
+namespace Lib_Reversi
 {
     public class Plateau
     {
@@ -70,14 +82,14 @@
             return (comptNoir, comptBlanc, comptVide);
         }
 
-        public static int CompterCoupsPossibles(bool JoueurActuel)
+        public static int CompterCoupsPossibles(bool JoueurActuelX)
         {
             int comptCP = 0;
             for (int l = 0; l < Plateau.nbCases; l++)
             {
                 for (int c = 0; c < Plateau.nbCases; c++)
                 {
-                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), JoueurActuel))
+                    if (CoupPossible.EstUnCoupPossible(new Coords(c, l), JoueurActuelX))
                     {
                         comptCP++;
                     }
