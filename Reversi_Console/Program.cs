@@ -1,6 +1,7 @@
 ﻿using Lib_Reversi;
 using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace Reversi_Console
@@ -98,9 +99,8 @@ namespace Reversi_Console
                 //Boucle principale
                 while (partie == true)
                 {
-                    //Déclaration des compteurs de valablens
-                    int comptX = 0;
-                    int comptO = 0;
+                    int comptNoir = 0;
+                    int comptBlanc = 0; 
                     int comptVide = 0;
                     int comptPossible = 0;
 
@@ -226,15 +226,13 @@ namespace Reversi_Console
                                 Console.WriteLine("                     ");
 
                                 // Comptage des pions
-                                comptX = Plateau.CompterNoir();
-                                comptO = Plateau.CompterBlanc();
-                                comptVide = Plateau.CompterVide();
+                                (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
                                 comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
 
                                 Console.SetCursorPosition(21, 3);
-                                Console.Write("X = " + comptX);
+                                Console.Write("X = " + comptNoir);
                                 Console.SetCursorPosition(21, 4);
-                                Console.Write("O = " + comptO);
+                                Console.Write("O = " + comptBlanc);
                                 if (Debug)
                                 {
                                     Console.SetCursorPosition(21, 5);
@@ -305,17 +303,17 @@ namespace Reversi_Console
                         Console.WriteLine("Partie terminée !");
                         Console.WriteLine("                ");
                         Console.WriteLine("                ");
-                        Console.WriteLine("     X = " + comptX);
-                        Console.WriteLine("     O = " + comptO);
+                        Console.WriteLine("     X = " + comptNoir);
+                        Console.WriteLine("     O = " + comptBlanc);
                         Console.WriteLine("                ");
                         Console.WriteLine("                ");
 
                         //Definition du vainqueur
-                        if (comptX > comptO)
+                        if (comptNoir > comptBlanc)
                         {
                             Console.WriteLine("Victoire des X !!");
                         }
-                        else if (comptO > comptX)
+                        else if (comptBlanc > comptNoir)
                         {
                             Console.WriteLine("Victoire des O !!");
                         }

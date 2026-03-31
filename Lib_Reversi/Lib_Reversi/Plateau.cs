@@ -43,9 +43,12 @@
             plateau[pionBaseY, pionBaseY] = NOIR;
         }
 
-        public static int CompterNoir()
+        public static (int comptNoir, int comptBlanc, int comptVide) CompterPions()
         {
             int comptNoir = 0;
+            int comptBlanc = 0;
+            int comptVide = 0;
+
             for (int l = 0; l < nbCases; l++)
             {
                 for (int c = 0; c < nbCases; c++)
@@ -54,41 +57,17 @@
                     {
                         comptNoir++;
                     }
-                }
-            }
-            return comptNoir;
-        }
-
-        public static int CompterBlanc()
-        {
-            int comptBlanc = 0;
-            for (int l = 0; l < nbCases; l++)
-            {
-                for (int c = 0; c < nbCases; c++)
-                {
-                    if (plateau[l, c] == BLANC)
+                    else if (plateau[l, c] == BLANC)
                     {
                         comptBlanc++;
                     }
-                }
-            }
-            return comptBlanc;
-        }
-
-        public static int CompterVide()
-        {
-            int comptVide = 0;
-            for (int l = 0; l < nbCases; l++)
-            {
-                for (int c = 0; c < nbCases; c++)
-                {
-                    if (plateau[l, c] == VIDE)
+                    else if (plateau[l, c] == VIDE)
                     {
                         comptVide++;
                     }
                 }
             }
-            return comptVide;
+            return (comptNoir, comptBlanc, comptVide);
         }
 
         public static int CompterCoupsPossibles(bool? joueurActif, bool? joueurPassif)

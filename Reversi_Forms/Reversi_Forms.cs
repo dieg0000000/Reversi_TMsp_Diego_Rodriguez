@@ -1,9 +1,7 @@
 ﻿using Lib_Reversi;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace Reversi_Forms
@@ -171,6 +169,15 @@ namespace Reversi_Forms
         //Mise à jour de la barre d'information a chaque click
         private void MAJBarreInfo()
         {
+            int comptNoir = 0;
+            int comptBlanc = 0;
+            int comptVide = 0;
+            int comptPossible = 0;
+
+            //Comptage des cases  
+            (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
+            comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
+
             if (Joueur.JoueurActif == true)
             {
                 JoueurActuel.Image = imgJNoir;
@@ -182,26 +189,12 @@ namespace Reversi_Forms
                 lblJoueurActuel.Text = "Tour";
             }
 
-            int comptNoir = 0;
-            int comptBlanc = 0;
-
-            //Compte le nombre de pions Noirs et Blancs dans le Plateau
-            comptNoir = Plateau.CompterNoir();
-            comptBlanc = Plateau.CompterBlanc();
-
             //Afficher les valeurs dans la barre d'info
             lblNoir.Text = comptNoir.ToString();
             lblBlanc.Text = comptBlanc.ToString();
 
             if (Debug)
             {
-                int comptVide = 0;
-                int comptPossible = 0;
-
-                //Comptage des cases vides et les coups possibles 
-                comptVide = Plateau.CompterVide();
-                comptPossible = Plateau.CompterCoupsPossibles(Joueur.JoueurActif, Joueur.JoueurPassif);
-
                 //Afficher les valeurs dans la barre d'info
                 lblVide.Text = "' ' = " + comptVide;
                 lblPossible.Text = "· = " + comptPossible;
@@ -281,10 +274,10 @@ namespace Reversi_Forms
 
             int comptNoir = 0;
             int comptBlanc = 0;
+            int comptVide = 0;
 
-            //Compte le nombre de pions Noirs et Blancs dans le Plateau
-            comptNoir = Plateau.CompterNoir();
-            comptBlanc = Plateau.CompterBlanc();
+            //Comptage des cases
+            (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
 
             //Messages en fonction du gagnant
             string message;
@@ -442,12 +435,17 @@ namespace Reversi_Forms
 
                     affichagePossible();
 
-                    int nbVide = Plateau.CompterVide();
+                    int comptNoir = 0;
+                    int comptBlanc = 0;
+                    int comptVide = 0;
+
+                    //Comptage des cases 
+                    (comptNoir, comptBlanc, comptVide) = Plateau.CompterPions();
 
                     bool finPartie = false;
 
                     //Fin si plateau plein
-                    if (nbVide == 0)
+                    if (comptVide == 0)
                     {
                         finPartie = true;
                     }

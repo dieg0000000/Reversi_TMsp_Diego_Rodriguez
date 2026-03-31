@@ -15,8 +15,7 @@
 
     public struct VerifCoords
     {
-       
-
+        //eVerifie le format de l'entrée
         public static bool VerifEntree(string x)
         {
             //Verifie si sa respecte la longueur
@@ -36,7 +35,6 @@
                     {
                         return true;
                     }
-
                 }
             }
             return false;
