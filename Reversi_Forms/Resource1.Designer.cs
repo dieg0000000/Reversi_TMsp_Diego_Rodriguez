@@ -71,6 +71,16 @@ namespace Reversi_Forms {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Coup_possible_petit {
+            get {
+                object obj = ResourceManager.GetObject("Coup_possible_petit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Icon semblable à (Icône).
         /// </summary>
         internal static System.Drawing.Icon Icone_reversi {
@@ -93,9 +103,29 @@ namespace Reversi_Forms {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Joueur_O_False_petit {
+            get {
+                object obj = ResourceManager.GetObject("Joueur_O_False_petit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Joueur_X_True {
             get {
                 object obj = ResourceManager.GetObject("Joueur_X_True", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Joueur_X_True_petit {
+            get {
+                object obj = ResourceManager.GetObject("Joueur_X_True_petit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

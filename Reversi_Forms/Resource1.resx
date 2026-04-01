@@ -121,8 +121,17 @@
   <data name="Coup_possible" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Assets\Coup_possible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Coup_possible_petit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\Coup_possible_petit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Icone_reversi" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Assets\Icone_reversi.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Joueur_X_True_petit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\Joueur_1_petit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Joueur_O_False_petit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Assets\Joueur_2_petit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Joueur_O_False" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Assets\Joueur_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

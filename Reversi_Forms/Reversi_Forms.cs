@@ -47,12 +47,14 @@ namespace Reversi_Forms
 
         //Récupération du --Debug
         private bool Debug = Environment.GetCommandLineArgs().Contains("--debug");
-        
+
         //Initialisations (appel des méthodes)
         public ReversiForm()
         {
             InitializeComponent();
 
+            this.Text = "Reversi Game";
+            this.ClientSize = new Size(600, 600);
             this.MinimumSize = new Size(350, 410);
 
             imgJNoir = Resource1.Joueur_X_True;
@@ -217,6 +219,13 @@ namespace Reversi_Forms
         private void InitialiserPlateau()
         {
             plateauPanel = new TableLayoutPanel();
+
+            //Eviter l'effet freeze au passage plein écran
+            typeof(TableLayoutPanel).GetProperty("DoubleBuffered",
+            System.Reflection.BindingFlags.NonPublic |
+            System.Reflection.BindingFlags.Instance)
+            .SetValue(plateauPanel, true, null);
+
             plateauPanel.Dock = DockStyle.Fill;
             plateauPanel.ColumnCount = Plateau.nbCases;
             plateauPanel.RowCount = Plateau.nbCases;
@@ -224,7 +233,7 @@ namespace Reversi_Forms
             //Configurer 8 colonnes de taille égale
             for (int i = 0; i < Plateau.nbCases; i++)
             {
-                plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 8f));
+                plateauPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5f));
             }
 
             //Configurer 8 lignes de taille égale
@@ -232,7 +241,7 @@ namespace Reversi_Forms
             {
                 plateauPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / 8f));
             }
-            
+
             plateauPanel.BackgroundImage = imgPlateau;
             plateauPanel.BackgroundImageLayout = ImageLayout.Stretch;
             this.Controls.Add(plateauPanel);
@@ -245,7 +254,7 @@ namespace Reversi_Forms
                 {
                     Button bout = new Button();
                     bout.Dock = DockStyle.Fill;
-                    bout.Margin = new Padding(0);
+                    bout.Margin = new Padding(4);
                     bout.FlatStyle = FlatStyle.Flat;
                     bout.FlatAppearance.BorderSize = 0;
                     bout.BackColor = Color.Transparent;
@@ -390,12 +399,8 @@ namespace Reversi_Forms
 
         }
 
-        //Gestion des coups à afficher dans les différents Plateaux
-        private void jouerCoup(Coords posCoup)
+        private void MAJPlateau()
         {
-
-            Plateau.SetCase(posCoup, Joueur.JoueurActuelX);
-
             //Mise à jour du Plateau en fonction de chaque casesw
             for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
             {
@@ -419,6 +424,14 @@ namespace Reversi_Forms
             }
         }
 
+        //Gestion des coups à afficher dans les différents Plateaux
+        private void jouerCoup(Coords posCoup)
+        {
+
+            Plateau.SetCase(posCoup, Joueur.JoueurActuelX);
+            MAJPlateau();
+        }
+
         //Click des bouttons
         private void Bouton_Click(object sender, EventArgs e)
         {
@@ -439,7 +452,7 @@ namespace Reversi_Forms
 
                 if (valable == true)
                 {
-                    jouerCoup(new Coords (position.X, position.Y));
+                    jouerCoup(new Coords(position.X, position.Y));
 
                     Joueur.tour++;
                     Joueur.ChangerJoueur();
@@ -487,6 +500,31 @@ namespace Reversi_Forms
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void ReversiForm_Resize(object sender, EventArgs e)
+        {
+
+            if (boutons[0, 0] == null)
+            {
+                return;
+            }
+
+            if (this.ClientSize.Width < 500 || this.ClientSize.Height < 500)
+            {
+                imgJNoir = Resource1.Joueur_X_True_petit;
+                imgJBlanc = Resource1.Joueur_O_False_petit;
+                imgCoupPoss = Resource1.Coup_possible_petit;
+            }
+            else if (this.ClientSize.Width >= 500 || this.ClientSize.Height >= 500)
+            {
+                imgJNoir = Resource1.Joueur_X_True;
+                imgJBlanc = Resource1.Joueur_O_False;
+                imgCoupPoss = Resource1.Coup_possible;
+            }
+
+            MAJPlateau();
+            affichagePossible();
         }
     }
 }

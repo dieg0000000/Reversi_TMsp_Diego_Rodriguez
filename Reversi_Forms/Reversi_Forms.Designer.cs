@@ -30,14 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // Reversi_Forms
+            // ReversiForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 603);
-            this.Name = "Reversi_Forms";
-            this.Text = "Reversi Game";
+            this.ClientSize = new System.Drawing.Size(1204, 1160);
+            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Name = "ReversiForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReversiForm_FormClosing);
+            this.Resize += new System.EventHandler(this.ReversiForm_Resize);
             this.ResumeLayout(false);
 
         }
