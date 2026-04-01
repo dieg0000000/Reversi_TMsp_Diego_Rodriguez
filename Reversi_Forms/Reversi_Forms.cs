@@ -6,7 +6,8 @@
 // SPECIAL NOTES    :       Oubliez pas de rajouter Lib_Reversi.dll dans les références et le using
 //                      Lib_Reversi;.
 // =============================================================================================== 
-// CHANGE HISTORY   :     
+// CHANGE HISTORY   :     01-04-2026 - Changement des images en plus petite résolution si la
+//                        fenêtre est petite
 // =============================================================================================== 
 
 using Lib_Reversi;
@@ -44,6 +45,9 @@ namespace Reversi_Forms
         private Label lblBlanc;
         private Label lblVide;
         private Label lblPossible;
+
+
+        private const int changerResolution = 500;
 
         //Récupération du --Debug
         private bool Debug = Environment.GetCommandLineArgs().Contains("--debug");
@@ -510,13 +514,13 @@ namespace Reversi_Forms
                 return;
             }
 
-            if (this.ClientSize.Width < 500 || this.ClientSize.Height < 500)
+            if (this.ClientSize.Width < changerResolution || this.ClientSize.Height < changerResolution)
             {
                 imgJNoir = Resource1.Joueur_X_True_petit;
                 imgJBlanc = Resource1.Joueur_O_False_petit;
                 imgCoupPoss = Resource1.Coup_possible_petit;
             }
-            else if (this.ClientSize.Width >= 500 || this.ClientSize.Height >= 500)
+            else if (this.ClientSize.Width >= changerResolution || this.ClientSize.Height >= changerResolution)
             {
                 imgJNoir = Resource1.Joueur_X_True;
                 imgJBlanc = Resource1.Joueur_O_False;
