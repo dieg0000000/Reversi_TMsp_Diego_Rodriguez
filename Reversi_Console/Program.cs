@@ -38,6 +38,8 @@ namespace Reversi_Console
             //Lancement de la partie
             do
             {
+                Joueur.JoueurActuelX = true;
+                Joueur.tour = 0;
                 Console.WriteLine("  A B C D E F G H");
 
                 Plateau.InitialiserGrille();
