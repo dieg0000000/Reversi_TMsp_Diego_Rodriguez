@@ -99,5 +99,3 @@ namespace Lib_Reversi
         }
     }
 }
-
-

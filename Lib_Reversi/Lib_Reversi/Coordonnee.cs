@@ -52,4 +52,3 @@ namespace Lib_Reversi
         }
     }
 } 
-
