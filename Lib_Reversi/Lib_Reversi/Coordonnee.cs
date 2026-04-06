@@ -48,6 +48,7 @@ namespace Lib_Reversi
                     }
                 }
             }
+            
             return false;
         }
     }

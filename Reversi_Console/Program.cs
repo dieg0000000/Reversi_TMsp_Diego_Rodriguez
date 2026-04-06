@@ -18,6 +18,46 @@ namespace Reversi_Console
 {
     internal class Program
     {
+        //Dessiner le plateau visual à partir du tableau invisible
+        static void DessinerPlateau()
+        {
+            for (int ligne = 0; ligne < Plateau.nbCases; ligne++)
+            {
+                for (int col = 0; col < Plateau.nbCases; col++)
+                {
+                    //Si la case est noire, on place un pion noir (X) dans la case visuelle
+                    if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.NOIR)
+                    {
+                        Console.SetCursorPosition(col * 2 + 2, ligne + 1);
+                        Console.Write("X");
+                    }
+
+                    //Si la case est blanche, on place un pion blanc (O) dans la case visuelle
+                    else if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.BLANC)
+                    {
+                        Console.SetCursorPosition(col * 2 + 2, ligne + 1);
+                        Console.Write("O");
+                    }
+                    //Si la case est vide, sa regarde si c'est un coup possible
+                    else if (Plateau.GetCase(new Coords(col, ligne)) == Plateau.VIDE)
+                    {
+                        //Si le coup est possible, on afifhe le coup dans la console
+                        if (CoupPossible.EstUnCoupPossible(new Coords(col, ligne), Joueur.JoueurActuelX))
+                        {
+                            Console.SetCursorPosition(col * 2 + 2, ligne + 1);
+                            Console.Write("·");
+                        }
+
+                        //Si ça n'en est pas un, on laisse un espace (case vide)
+                        else
+                        {
+                            Console.SetCursorPosition(col * 2 + 2, ligne + 1);
+                            Console.Write(' ');
+                        }
+                    }
+                }
+            }
+        }
         static void Main(string[] args)
         {
             bool Debug = args.Contains("--debug");
@@ -25,8 +65,10 @@ namespace Reversi_Console
             Console.Clear();
 
             Console.WriteLine("Bienvenue au Reversi !");
+            Console.WriteLine("   ");
             Console.WriteLine("Placez vos pions pour encadrer ceux de l'adversaire et les retourner.");
             Console.WriteLine("Les cases marquées d'un · indiquent les coups jouables.");
+            Console.WriteLine("Vous pouvez naviguer entre les coups avec < et >");
             Console.WriteLine("   ");
             Console.WriteLine("[ENTER] pour commencer la partie");
             Console.ReadLine();
@@ -160,6 +202,28 @@ namespace Reversi_Console
                     //Vérification de l'entrée de l'utilisateur
                     bool estValide = VerifCoords.VerifEntree(x);
 
+                    //Si Undo ou Redo
+                    if (x == "<")
+                    {
+                        if (Plateau.Undo())
+                        {
+                            Joueur.tour--;
+                            Joueur.ChangerJoueur();
+                            DessinerPlateau();
+                        }
+                        continue;
+                    }
+                    else if (x == ">")
+                    {
+                        if (Plateau.Redo())
+                        {
+                            Joueur.tour++;
+                            Joueur.ChangerJoueur();
+                            DessinerPlateau();
+                        }
+                        continue;
+                    }
+
                     //Si l'entrée suit le bon format on décapsule les valeurs
                     if (estValide == true)
                     {
@@ -231,6 +295,7 @@ namespace Reversi_Console
 
                                 Joueur.tour++;
                                 Joueur.ChangerJoueur();
+                                Plateau.SauvegarderEtat();
 
                                 valable = false;
                                     

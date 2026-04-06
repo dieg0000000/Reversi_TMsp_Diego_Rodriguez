@@ -10,6 +10,8 @@
 //                      coups possibles
 // ===============================================================================================
 
+using System.Collections.Generic;
+
 namespace Lib_Reversi
 {
     public class Plateau
@@ -25,6 +27,49 @@ namespace Lib_Reversi
         public static readonly bool? NOIR = true;
         public static readonly bool? BLANC = false;
         public static readonly bool? VIDE = null;
+
+        //Liste des plateaux pour le Undo
+        private static List<bool?[,]> HistoriquePlateau = new List<bool?[,]>();
+
+        //Curseur Undo / Redo
+        private static int CurseurUndo = -1;
+
+        //Sauvegarde l'état actuel
+        public static void SauvegarderEtat()
+        {
+            if (CurseurUndo < HistoriquePlateau.Count - 1)
+                HistoriquePlateau.RemoveRange(CurseurUndo + 1, HistoriquePlateau.Count - CurseurUndo - 1);
+
+            HistoriquePlateau.Add((bool?[,])plateau.Clone());
+            CurseurUndo++;
+        }
+
+        //Afficher le coup d'avant
+        public static bool Undo()
+        {
+            if (CurseurUndo <= 0)
+            {
+                return false;
+            }
+
+            CurseurUndo--;         
+            plateau = (bool?[,])HistoriquePlateau[CurseurUndo].Clone();
+            return true;
+        }
+
+        //Afficher le coup d'après
+        public static bool Redo()
+        {
+            if (CurseurUndo >= HistoriquePlateau.Count - 1)
+            {
+                return false;
+            }
+
+            CurseurUndo++;
+            plateau = (bool?[,])HistoriquePlateau[CurseurUndo].Clone();
+            return true;
+        }
+
 
         //Lire une case
         public static bool? GetCase(Coords pos)
@@ -53,6 +98,13 @@ namespace Lib_Reversi
             plateau[pionBaseX, pionBaseY] = BLANC;
             plateau[pionBaseY, pionBaseX] = BLANC;
             plateau[pionBaseY, pionBaseY] = NOIR;
+
+            //Remet les infos du Undo à 0
+            CurseurUndo = -1;
+            HistoriquePlateau.Clear();
+            
+            //Sauvegarder le plateau de base
+            SauvegarderEtat();
         }
 
         public static (int comptNoir, int comptBlanc, int comptVide) CompterPions()
