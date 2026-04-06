@@ -6,7 +6,7 @@
 // SPECIAL NOTES   :    Oubliez pas de rajouter Lib_Reversi.dll dans les références et le
 //                      using Lib_Reversi;.
 // =============================================================================================== 
-// CHANGE HISTORY   :     
+// CHANGE HISTORY   :   06-04-2025 - Ajout Undo
 // =============================================================================================== 
 
 using Lib_Reversi;

@@ -6,7 +6,8 @@
 // SPECIAL NOTES    :   Oubliez pas de générer la solution (Ctrl+Maj+B)après chaque modification
 //                      pour retouver les modifications dans votre code
 // ===============================================================================================
-// CHANGE HISTORY   :   31-03-2026 - Regroupement méthode de comptage de pions / espaces vides /
+// CHANGE HISTORY   :   06-04-2026 - Ajout Undo
+//                      31-03-2026 - Regroupement méthode de comptage de pions / espaces vides /
 //                      coups possibles
 // ===============================================================================================
 
@@ -38,7 +39,9 @@ namespace Lib_Reversi
         public static void SauvegarderEtat()
         {
             if (CurseurUndo < HistoriquePlateau.Count - 1)
+            {
                 HistoriquePlateau.RemoveRange(CurseurUndo + 1, HistoriquePlateau.Count - CurseurUndo - 1);
+            }
 
             HistoriquePlateau.Add((bool?[,])plateau.Clone());
             CurseurUndo++;

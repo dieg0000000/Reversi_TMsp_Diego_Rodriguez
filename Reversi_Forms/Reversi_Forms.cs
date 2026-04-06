@@ -6,12 +6,14 @@
 // SPECIAL NOTES    :       Oubliez pas de rajouter Lib_Reversi.dll dans les références et le using
 //                      Lib_Reversi;.
 // =============================================================================================== 
-// CHANGE HISTORY   :     01-04-2026 - Changement des images en plus petite résolution si la
-//                        fenêtre est petite
+// CHANGE HISTORY   :   06-04-2026 - Ajout Undo
+//                      01-04-2026 - Changement des images en plus petite résolution si la
+//                      fenêtre est petite
 // =============================================================================================== 
 
 using Lib_Reversi;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,6 +27,8 @@ namespace Reversi_Forms
         private Image imgJBlanc;
         private Image imgPlateau;
         private Image imgCoupPoss;
+        private Image imgPrec;
+        private Image imgSuiv;
 
         //Tableau des caractères et des bouttons
         private Button[,] boutons = new Button[Plateau.nbCases, Plateau.nbCases];
@@ -37,6 +41,7 @@ namespace Reversi_Forms
 
         //Informations de la barre d'info
         private Panel barreInfo;
+        private Panel barreBas;
         private PictureBox JoueurActuel;
         private Label lblJoueurActuel;
         private PictureBox picNoir;
@@ -46,6 +51,9 @@ namespace Reversi_Forms
         private Label lblVide;
         private Label lblPossible;
 
+        //Informations de la barre inferieur
+        private Button Prec;
+        private Button Suiv;
 
         private const int changerResolution = 500;
 
@@ -58,17 +66,20 @@ namespace Reversi_Forms
             InitializeComponent();
 
             this.Text = "Reversi Game";
-            this.ClientSize = new Size(600, 600);
-            this.MinimumSize = new Size(350, 410);
+            this.ClientSize = new Size(550, 600);
+            this.MinimumSize = new Size(350, 460);
 
             imgJNoir = Resource1.Joueur_X_True;
             imgJBlanc = Resource1.Joueur_O_False;
             imgCoupPoss = Resource1.Coup_possible;
             imgPlateau = Resource1.Plateau;
+            imgPrec = Resource1.Precedent;
+            imgSuiv = Resource1.Suivant;
 
             Plateau.InitialiserGrille();
             InitialiserPlateau();
             InitialiserBarreInfo();
+            InitialiserBarreBas();
             affichagePossible();
             MAJBarreInfo();
             this.Show();
@@ -114,10 +125,11 @@ namespace Reversi_Forms
             JoueurActuel.SizeMode = PictureBoxSizeMode.StretchImage;
             barreInfo.Controls.Add(JoueurActuel);
 
+
             //Label joueur actuel
             lblJoueurActuel = new Label();
             lblJoueurActuel.AutoSize = false;
-            lblJoueurActuel.Size = new Size(130, 36);
+            lblJoueurActuel.Size = new Size(50, 36);
             lblJoueurActuel.Location = new Point(10, 7);
             lblJoueurActuel.ForeColor = Color.White;
             lblJoueurActuel.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -162,8 +174,8 @@ namespace Reversi_Forms
 
             lblVide = new Label();
             lblVide.AutoSize = false;
-            lblVide.Size = new Size(80, 36);
-            lblVide.Location = new Point(360, 7);
+            lblVide.Size = new Size(60, 36);
+            lblVide.Location = new Point(90, 7);
             lblVide.ForeColor = Color.White;
             lblVide.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lblVide.TextAlign = ContentAlignment.MiddleLeft;
@@ -173,7 +185,7 @@ namespace Reversi_Forms
             lblPossible = new Label();
             lblPossible.AutoSize = false;
             lblPossible.Size = new Size(80, 36);
-            lblPossible.Location = new Point(440, 7);
+            lblPossible.Location = new Point(150, 7);
             lblPossible.ForeColor = Color.White;
             lblPossible.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lblPossible.TextAlign = ContentAlignment.MiddleLeft;
@@ -182,6 +194,45 @@ namespace Reversi_Forms
 
             this.Controls.Add(barreInfo);
             this.Icon = Resource1.Icone_reversi;
+        }
+
+        private void InitialiserBarreBas()
+        {
+            barreBas = new Panel();
+            barreBas.Dock = DockStyle.Bottom;
+            barreBas.Height = 50;
+            barreBas.BackColor = Color.FromArgb(51, 170, 68);
+            barreBas.Padding = new Padding(8, 4, 8, 4);
+
+            Prec = new Button();
+            Prec.Size = new Size(40, 40);
+            Prec.FlatStyle = FlatStyle.Flat;
+            Prec.FlatAppearance.BorderSize = 0;
+            Prec.BackColor = Color.Transparent;
+            Prec.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            Prec.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            Prec.BackgroundImage = imgPrec;
+            Prec.BackgroundImageLayout = ImageLayout.Stretch;
+            Prec.Cursor = Cursors.Hand;
+            Prec.Location = new Point(230, 5);
+            Prec.Click += Prec_Click;
+            barreBas.Controls.Add(Prec);
+
+            Suiv = new Button();
+            Suiv.Size = new Size(40, 40);
+            Suiv.FlatStyle = FlatStyle.Flat;
+            Suiv.FlatAppearance.BorderSize = 0;
+            Suiv.BackColor = Color.Transparent;
+            Suiv.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            Suiv.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            Suiv.BackgroundImage = imgSuiv;
+            Suiv.BackgroundImageLayout = ImageLayout.Stretch;
+            Suiv.Cursor = Cursors.Hand;
+            Suiv.Location = new Point(280, 5);
+            Suiv.Click += Suiv_Click;
+            barreBas.Controls.Add(Suiv);
+
+            this.Controls.Add(barreBas);
         }
 
         //Mise à jour de la barre d'information a chaque click
@@ -431,8 +482,8 @@ namespace Reversi_Forms
         //Gestion des coups à afficher dans les différents Plateaux
         private void jouerCoup(Coords posCoup)
         {
-
             Plateau.SetCase(posCoup, Joueur.JoueurActuelX);
+            Plateau.SauvegarderEtat();
             MAJPlateau();
         }
 
@@ -527,8 +578,35 @@ namespace Reversi_Forms
                 imgCoupPoss = Resource1.Coup_possible;
             }
 
+            Prec.Location = new Point(barreBas.Width / 2 - 45, 0);
+            Suiv.Location = new Point(barreBas.Width / 2 + 5, 0);
+
             MAJPlateau();
             affichagePossible();
+        }
+
+        private void Prec_Click(object sender, EventArgs e)
+        {
+            if (Plateau.Undo())
+            {
+                Joueur.tour--;
+                Joueur.ChangerJoueur();
+                MAJPlateau();
+                MAJBarreInfo();
+                affichagePossible();
+            }
+        }
+
+        private void Suiv_Click(object sender, EventArgs e)
+        {
+            if (Plateau.Redo())
+            {
+                Joueur.tour++;
+                Joueur.ChangerJoueur();
+                MAJPlateau();
+                MAJBarreInfo();
+                affichagePossible();
+            }
         }
     }
 }
